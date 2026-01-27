@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Media & Stream Test</title>
+    <style>
+        body { font-family: sans-serif; background: #1a1a1a; color: white; padding: 40px; }
+        .container { max-width: 900px; margin: auto; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+       
+        img { max-width: 100%; border-radius: 4px; }
+        iframe { width: 100%; height: 300px; border: none; }
+      
+        h2 { border-bottom: 2px solid #444; padding-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Node.js Media Server</h1>
+        
+        <div class="grid">
+            <div class="box">
+                <h2>Image (.png)</h2>
+                <img src="./Resources/logo.png" alt="Test Image">
+                <p>MIME: image/png</p>
+            </div>
+
+            <div class="box">
+                <h2>Document (.pdf)</h2>
+                <iframe src="./Resources/sample.pdf"></iframe>
+                <p>MIME: application/pdf</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
