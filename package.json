@@ -1,14 +1,7 @@
 {
   "name": "nodejs-mini-projects",
   "version": "1.0.0",
-  "description": " Node.js Mini Projects Collection ",
-  "keywords": [
-    "node.js",
-    "mini-project",
-    "project",
-    "\"best",
-    "learning"
-  ],
+  "description": "Node.js project ",
   "homepage": "https://github.com/imdad-dev/NodeJs-mini-projects#readme",
   "bugs": {
     "url": "https://github.com/imdad-dev/NodeJs-mini-projects/issues"
@@ -18,10 +11,16 @@
     "url": "git+https://github.com/imdad-dev/NodeJs-mini-projects.git"
   },
   "license": "MIT",
-  "author": "imdadul hoque",
+  "author": "Imdadul Hoque",
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ejs": "^4.0.1",
+    "express": "^5.2.1",
+    "inquirer": "^8.2.7",
+    "qrcode": "^1.5.4"
   }
 }

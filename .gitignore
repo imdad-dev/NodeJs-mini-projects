@@ -3,7 +3,8 @@ node_modules/
  
 
 # Ignore package files if you don't want them in every sub-project
- 
+ package.json
+ package-lock.json
 
 # Ignore logs and temp files
 *.log### AL ###
