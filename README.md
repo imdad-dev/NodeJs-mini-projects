@@ -14,3 +14,14 @@ A minimal Node.js HTTP server that demonstrates:
 - Handling different routes (`/about`, `/index`, `/media`)
 - Sending plain text, HTML, and JSON responses
 - Basic 404 handling
+
+## 02. QR code Generate 
+
+A  Node.js application that generates QR codes from text or URLs.
+
+## Features
+- Generate QR code from any text/URL
+- Save or download QR code as PNG image
+ 
+## Install dependencies
+npm install qrcode
