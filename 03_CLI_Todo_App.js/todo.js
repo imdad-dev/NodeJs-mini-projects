@@ -40,6 +40,23 @@ function listTask (){
     });
 }
 
+/* ===========Remove TASKS ============ */
+function removedTask(id){
+
+    const tasks = loadTasks();
+    const index = tasks.findIndex(task => task.id = id);
+    
+    if (index === -1) {
+        console.log(`Task with ID ${id} not found.`);
+        return;
+    }
+
+    // remove item 
+    tasks.splice(index,1);
+    saveTasks(tasks);
+    console.log("Removed Task: " ,id);
+ 
+}
 
 const command = process.argv[2];  // first argument 
 const argument = process.argv[3];  // second argument 
@@ -70,7 +87,7 @@ const argument = process.argv[3];  // second argument
           case 'remove' :
             case 'rm' :
              case 'delete': {
-                removeTask(argument);
+                removedTask(parseInt(argument));
                 break;
              }     
 
