@@ -44,17 +44,17 @@ function listTask (){
 function removedTask(id){
 
     const tasks = loadTasks();
-    const index = tasks.findIndex(task => task.id = id);
-    
-    if (index === -1) {
-        console.log(`Task with ID ${id} not found.`);
-        return;
-    }
-
+ 
+  
+ 
+if(id>0 && id<= tasks.length){
     // remove item 
-    tasks.splice(index,1);
+    const removeTask =tasks.splice(id-1,1)[0];
     saveTasks(tasks);
-    console.log("Removed Task: " ,id);
+    console.log("Removed Task: " ,removeTask);
+} else {
+    console.log("tasks Not Found in this Id: " ,id)
+}
  
 }
 
