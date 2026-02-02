@@ -58,6 +58,48 @@ if(id>0 && id<= tasks.length){
  
 }
 
+ /* ===========check TASKS ============ */
+
+ function checkTask(id){
+
+    const tasks = loadTasks();
+
+    if(id>0 && id<= tasks.length){
+    
+        tasks[id-1].done= true; 
+    saveTasks(tasks);
+console.log(`✅ Task ${id} marked as DONE`);
+} else {
+    console.log("tasks Not Found in this Id: " ,id)
+}
+ }
+
+  /* ===========check TASKS ============ */
+
+ function unCheckTask(id){
+
+    const tasks = loadTasks();
+
+    if(id>0 && id<= tasks.length){
+    
+        tasks[id-1].done= false; 
+    saveTasks(tasks);
+console.log(`✅ Task ${id} uncheck successfully`);
+} else {
+    console.log("tasks Not Found in this Id: " ,id)
+}
+ }
+
+
+
+ // -----clear All the Task -------//
+
+ function clearTask(){
+ 
+    saveTasks([]);
+    console.log("clear all the task");
+ }
+
 const command = process.argv[2];  // first argument 
 const argument = process.argv[3];  // second argument 
 
@@ -75,7 +117,12 @@ const argument = process.argv[3];  // second argument
 
        case 'check':
         case "done" : {
-                checkTask(argument);
+                checkTask(parseInt(argument));
+                break; 
+            }  
+       case 'unCheck':
+        case "not-done" : {
+                unCheckTask(parseInt(argument));
                 break; 
             }  
     
@@ -91,7 +138,33 @@ const argument = process.argv[3];  // second argument
                 break;
              }     
 
+                
+            case 'clear' :
+             case 'clr': {
+                clearTask();
+                break;
+             }     
+  
+
              default : {
-                console.log("help , write all the command help Later");
+                console.log( `
+                    
+  📋  Todo CLI ::
+
+  Commands:
+
+    todo list or ls        →  list all tasks
+    todo add <task>        →  add new task
+    todo done <number>     →  toggle done
+    todo rm <number>       →  delete task
+    todo clear --yes       →  delete everything
+
+  Examples:
+    todo add Finish report
+    todo done 2
+
+    todo rm 1
+    
+    `);
              }
     }
