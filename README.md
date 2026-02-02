@@ -25,3 +25,19 @@ A  Node.js application that generates QR codes from text or URLs.
  
 ## Install dependencies
 npm install qrcode
+
+## 03. CLI based todo App 
+
+A simple, fast, and lightweight command-line todo list manager.
+
+Store your tasks in a `task.json` file — no database needed.
+
+## Features
+
+- Add new tasks
+- List all tasks
+- Mark tasks as done / undone
+- Edit / update existing tasks
+- Delete tasks
+- Clear all completed tasks
+
