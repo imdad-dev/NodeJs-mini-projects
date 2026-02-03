@@ -167,7 +167,7 @@ const newTaskUpdate = process.argv[4] // 3rd agr--> update
              default : {
                 console.log( `
                     
-  📋  Todo CLI ::
+  📋 Todo CLI ::
 
   Commands:
 
@@ -180,7 +180,6 @@ const newTaskUpdate = process.argv[4] // 3rd agr--> update
   Examples:
     todo add Finish report
     todo done 2
-
     todo rm 1
     
     `);
