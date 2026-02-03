@@ -101,16 +101,12 @@ console.log(`✅ Task ${id} uncheck successfully`);
  
  function  updateTask(id , newTask){
  const tasks = loadTasks();
-  console.log(tasks)
-
- console.log(id , newTask)
- console.log(typeof newTask)
-
+ 
  if(id > 0 && id <= tasks.length ){
-      console.log(tasks)
+ 
     const  idx= id-1; 
-    tasks[id-1].task = newTask; 
-    console.log(tasks)
+    tasks[idx].task = newTask; 
+  
     saveTasks(tasks);
    console.log(`Updated Task successfully! New value: ${newTask}`);
     } else {
