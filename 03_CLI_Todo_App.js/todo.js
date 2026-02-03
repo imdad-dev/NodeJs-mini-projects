@@ -1,5 +1,5 @@
 const fs = require("fs");
-const filePath = "./tasks.json";
+const filePath = "./task.json";
 
 
 const loadTasks = ()=>{
@@ -45,9 +45,7 @@ function removedTask(id){
 
     const tasks = loadTasks();
  
-  
- 
-if(id>0 && id<= tasks.length){
+if(id >0 && id <= tasks.length){
     // remove item 
     const removeTask =tasks.splice(id-1,1)[0];
     saveTasks(tasks);
@@ -74,7 +72,7 @@ console.log(`✅ Task ${id} marked as DONE`);
 }
  }
 
-  /* ===========check TASKS ============ */
+  /* ===========unCheck TASKS ============ */
 
  function unCheckTask(id){
 
@@ -100,8 +98,30 @@ console.log(`✅ Task ${id} uncheck successfully`);
     console.log("clear all the task");
  }
 
+ 
+ function  updateTask(id , newTask){
+ const tasks = loadTasks();
+  console.log(tasks)
+
+ console.log(id , newTask)
+ console.log(typeof newTask)
+
+ if(id > 0 && id <= tasks.length ){
+      console.log(tasks)
+    const  idx= id-1; 
+    tasks[id-1].task = newTask; 
+    console.log(tasks)
+    saveTasks(tasks);
+   console.log(`Updated Task successfully! New value: ${newTask}`);
+    } else {
+        
+        console.log("Error: Task ID not found.");
+    }
+ }
+
 const command = process.argv[2];  // first argument 
 const argument = process.argv[3];  // second argument 
+const newTaskUpdate = process.argv[4] // 3rd agr--> update 
 
 // use swithc case instand of if-else 
     switch(command){
@@ -126,8 +146,10 @@ const argument = process.argv[3];  // second argument
                 break; 
             }  
     
-            case 'update' : {
-                   updateTask(argument);
+            case 'update' :
+                case 'edit' : {
+                   updateTask((parseInt(argument)) , newTaskUpdate);
+                   break;
             }      
 
 
