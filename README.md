@@ -41,3 +41,15 @@ Store your tasks in a `task.json` file — no database needed.
 - Delete tasks
 - Clear all completed tasks
 
+## 04 Rest Api 
+
+This is a very basic REST API.  
+We only use **4 main HTTP methods** to work with data.
+
+### Most Common Beginner Examples
+
+- **GET**    → see list of all students  
+- **GET**    → see details of student #7  
+- **POST**   → add new student  
+- **PUT**    → change everything about student #7  
+- **DELETE** → remove student #7
