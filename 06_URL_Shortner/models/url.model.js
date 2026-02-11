@@ -13,10 +13,11 @@ const urlSchema = new mongoose.Schema({
         required : true 
     } ,
 
-    visitHistory :  {
-        type : Number , 
-        default : 0 
-    } ,
+    visitHistory : [
+         {
+            timestamp : { type : Number }
+    } 
+] ,
 
     createdBy : {
 
