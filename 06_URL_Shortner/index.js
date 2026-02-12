@@ -9,7 +9,7 @@ const PORT = 3000;
 
 
 // mongo Connect 
-connectDB("mongodb://localhost:27017/url-shortner") ;
+connectDB("mongodb://localhost:27017/urlShortner") ;
 
 // view engin ejs
 app.set("view engine" , "ejs");

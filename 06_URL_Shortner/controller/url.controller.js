@@ -23,4 +23,42 @@ return res.status(200).redirect("home");
 }
 
 
-module.exports = { GenerateShortURL }
+const redirectNewURL = async(req , res)=>{
+    const shortId = req.params?.shortId;
+
+    const entry = await URL.findOneAndUpdate( {
+           shortId , 
+           } ,
+    {
+    $push : {
+        visitHistory : { timestamp : Date.now() }
+    }
+   })
+//    console.log(entry);
+
+if(!entry || !entry.redirectURL){
+    return res.status(404).send("Url Not Found!");
+}
+
+return res.status(200).redirect(entry.redirectURL);
+
+}
+
+const handleAnalyticesURL = async(req , res)=>{
+
+    const shortId = req.params?.id;
+
+    const urlResult = await URL.findOne(shortId);
+
+    if(!urlResult) {
+        return res.status(404).send("No url generate");
+    }
+
+    console.log(urlResult)
+    return res.status(200).json({
+        totalClick : urlResult.visitHistory.length ,
+        visitHistory : urlResult.visitHistory ,
+    });
+}
+
+module.exports = { GenerateShortURL ,redirectNewURL ,handleAnalyticesURL }
