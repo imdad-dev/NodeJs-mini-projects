@@ -2,6 +2,7 @@ const express = require('express');
 const connectDB = require("./DB/connectDB.js")
 const urlRoutes = require("./routes/url.routes.js");
 const path = require("path");
+const staticRoute = require("./routes/static.route.js");
  
 
 const app = express();
@@ -21,9 +22,7 @@ app.use(express.urlencoded({extended: false}));
 
 app.use("/url" , urlRoutes);
 
-app.use("/home" ,(req , res)=>{
-    return res.render("home");
-} )
+app.use("/" , staticRoute) ; 
 
 
 app.listen(PORT , ()=>{
