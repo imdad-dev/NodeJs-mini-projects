@@ -3,16 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>URl Project</title>
+   <style>
+
+/* public/style.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    color: #2d3436;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.id_gemerate {
+    background: #d4edda;
+    color: #155724;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #c3e6cb;
+}
+
+.form {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+.form input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 250px;
+}
+
+.form button {
+    padding: 10px 20px;
+    background-color: #6c5ce7;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form button:hover {
+    background-color: #a29bfe;
+}
+
+table {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+thead {
+    background-color: #2d3436;
+    color: white;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+tr:hover {
+    background-color: #f9f9f9;
+}
+   </style>
 </head>
 <body>
-    
-    <H1>Short URL Generate</H1>
+   <h1>URL shortner </h1>
+<div class="id_gemerate">
+ <% if (locals.shortId) { %>
+    <p>Your Short URL is: http://localhost:300/url/<%=shortId%></p>
+  
+ <% } %>
+ </div>
 
-    <form action="/url" method="post" class="url">
-        <label for="url"> Enter your url: </label>
-        <input type="text" name="url" placeholder="https://github.com">
-        <button type="submit">Submit</button>
-    </form>
+   <form class="form" method="POST"  action ="/url">
+
+    <label for="url">Enter URL : </label>
+    <input type="text" name="url" placeholder="https://example.com">
+    <button type="submit">Generate</button>
+   </form>
+
+   <div class="url_history"> 
+   <% if (locals.urls) { %>
+     <table>
+        <thead>
+            <th>Sl. No</th>
+            <th>shortId</th>
+      <th>Redirect url</th>
+            <th>Visit/Click</th>
+        </thead>
+        <tbody>
+            <% urls.forEach( (url , index) => { %>
+         <tr>
+            <td> <%= index +1 %></td>
+            <td> <%= url.shortId %></td>
+      <td> <a href="<%= url.redirectURL  %>" target ="_blank" ><%= url.redirectURL  %>  </a>  </td> 
+            <td> <%= url.visitHistory.length%></td>
+            
+          </tr>
+
+            <% }) %>
+       
+        </tbody>
+     </table>
+   <% } %>
+ </div>
 </body>
 </html>
