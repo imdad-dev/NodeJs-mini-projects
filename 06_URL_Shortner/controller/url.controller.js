@@ -18,7 +18,7 @@ await URL.create({
     createdBy : req.user?._id 
 })
 
-return res.status(200).redirect("home");
+return res.status(200).render("home" , {shortId : shortId} );
 
 }
 
@@ -54,7 +54,7 @@ const handleAnalyticesURL = async(req , res)=>{
         return res.status(404).send("No url generate");
     }
 
-    console.log(urlResult)
+    // console.log(urlResult);
     return res.status(200).json({
         totalClick : urlResult.visitHistory.length ,
         visitHistory : urlResult.visitHistory ,

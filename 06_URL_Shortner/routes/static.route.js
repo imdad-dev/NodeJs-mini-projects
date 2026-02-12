@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get("/home" , async (req , res) =>{
 
-    const allURL = await URL.findOne({createdBy : req.user?._id});
+    const allURL = await URL.find({createdBy : req.user?._id});
     console.log(allURL)
 
     if(!allURL) return res.send("NO any url ? first Generate the URL");
