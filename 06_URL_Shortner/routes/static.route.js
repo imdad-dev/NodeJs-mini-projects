@@ -12,4 +12,8 @@ router.get("/home" , async (req , res) =>{
     return res.status(200).render("home" , { urls : allURL});  // urls --> front-ent (must be same)
 })
 
+router.get("/signup" , (req , res)=>{
+    return res.render("signup");
+})
+
 module.exports= router;
