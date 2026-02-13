@@ -25,7 +25,9 @@ const userLogin = async (req , res) =>{
         })
     }
 const sesseionId = uuidv4();
+
  setuser(sesseionId , user);
+
  res.cookie("uid" ,sesseionId)   
 
         return res.redirect("/home")
