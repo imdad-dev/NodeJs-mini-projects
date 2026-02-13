@@ -5,7 +5,7 @@ const router = express.Router();
 router.get("/home" , async (req , res) =>{
 
     const allURL = await URL.find({createdBy : req.user?._id});
-    console.log(allURL)
+    // console.log(allURL)
 
     if(!allURL) return res.send("NO any url ? first Generate the URL");
 
@@ -14,6 +14,11 @@ router.get("/home" , async (req , res) =>{
 
 router.get("/signup" , (req , res)=>{
     return res.render("signup");
+})
+
+
+router.get("/login" , (req , res)=>{
+    return res.render("login");
 })
 
 module.exports= router;
