@@ -1,32 +1,33 @@
  
-const { getuser} = require("../utils/auth.uril.js");
+const { getUser} = require("../utils/auth.uril.js");
 
 const restrictToLoggedUserOnly = async(req , res , next) => {
-    
-    // console.log(req)  
-    const userUid = req.cookies?.uid; 
- 
 
-    if(! userUid) {
+const token = req.cookies?.jwt;   
+//  console.log(token)
+
+    if(!token) {
         return res.redirect("/login");
     }
 
-    const user = getuser(userUid);
-    console.log(user);
+    const user = getUser(token);
+    // console.log(user);
 
     if(!user) {
         return res.redirect("/login");
     }
 
     req.user = user;
-  next()   ;
+  next();
 }
 
 
 async function checkAuth(req , res ,next){
-     const userUid = req.cookies?.uid; 
 
-    const user = getuser(userUid);
+ const token= req.cookies?.jwt;
+
+ 
+    const user = getUser(token);
     req.user = user;
   next()   
 }

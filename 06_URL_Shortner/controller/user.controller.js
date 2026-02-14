@@ -1,6 +1,6 @@
 const User = require("../models/user.model.js")
-const { v4: uuidv4 } = require ("uuid")
-const { setuser } = require("../utils/auth.uril.js")
+ 
+const { setUser } = require("../utils/auth.uril.js")
 
 const userSignup = async (req , res) =>{
     const {name , email , password} = req.body;
@@ -15,6 +15,7 @@ const userSignup = async (req , res) =>{
 }
 
 const userLogin = async (req , res) =>{
+
     const {email , password} = req.body;
 
     const user = await User.findOne({email , password});
@@ -24,13 +25,11 @@ const userLogin = async (req , res) =>{
             error : "Invalid email or password"
         })
     }
-const sesseionId = uuidv4();
+ 
+   const token = setUser(user);
 
- setuser(sesseionId , user);
-
- res.cookie("uid" ,sesseionId )   
- console.log(req.header.cookie) // undefined 
- console.log(req.cookies?.uid);  //  value
+ res.cookie("jwt" ,token)   
+ 
 
         return res.redirect("/home")
 }

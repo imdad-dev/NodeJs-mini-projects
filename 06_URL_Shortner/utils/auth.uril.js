@@ -1,14 +1,29 @@
-const sessionIdUserMap = new Map();
-
-function setuser(id , user){
-    sessionIdUserMap.set(id , user)
+ const JWT = require("jsonwebtoken");
+const secretKey = "!Imdad@&*^#$~" ; // Gen-> write .env file 
+function setUser( user){
+ try {
+    const payloads = {
+   id : user._id ,
+   email: user.email ,
+   name: user.name ,
+    }
+    return JWT.sign(payloads, secretKey);
+ } catch (error) {
+    return res.send("Token Not Genrated!")
+ }
 }
 
-function getuser (id) {
-    return sessionIdUserMap.get(id);
+function getUser (token) {
+     if(!token) return ;
+
+     try {
+       return  JWT.verify(token , secretKey);
+     } catch (error) {
+        return null;
+     }
 }
 
 module.exports = { 
-       setuser , 
-       getuser , 
+       setUser , 
+       getUser , 
 }
