@@ -28,7 +28,9 @@ const sesseionId = uuidv4();
 
  setuser(sesseionId , user);
 
- res.cookie("uid" ,sesseionId)   
+ res.cookie("uid" ,sesseionId )   
+ console.log(req.header.cookie) // undefined 
+ console.log(req.cookies?.uid);  //  value
 
         return res.redirect("/home")
 }
