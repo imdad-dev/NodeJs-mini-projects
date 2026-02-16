@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
 } , { timestamps : true});
 
 
-mongoose.pre("save" , async function (){
+userSchema.pre("save" , async function (){
     const user = this;
 if(!user.isModified("password")) return ; 
 const salt = crypto.randomBytes(16).toString;

@@ -1,0 +1,20 @@
+{
+  "name": "05_blog_app",
+  "version": "1.0.0",
+  "description": "Blofiy , addBlog , crudOperations ",
+  "license": "ISC",
+  "author": "Imdad Bhai",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "dev start",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  },
+  "dependencies": {
+    "ejs": "^4.0.1"
+  }
+}
