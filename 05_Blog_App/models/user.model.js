@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import crypto from "crypto"
 const userSchema = new mongoose.Schema({
  
     fullName : {
@@ -11,6 +11,11 @@ const userSchema = new mongoose.Schema({
         type : String , 
         required : true , 
         unique : true ,
+    } ,
+
+    salt : {
+        type : String ,
+        required : true ,
     } ,
 
     password : {
@@ -27,7 +32,21 @@ const userSchema = new mongoose.Schema({
         enum : ["USER" , "ADMIN"] ,
         default : "USER" ,
     }
-} , { timestamps : true})
+} , { timestamps : true});
+
+
+mongoose.pre("save" , async function (){
+    const user = this;
+if(!user.isModified("password")) return ; 
+const salt = crypto.randomBytes(16).toString;
+const hashedPassword = crypto
+                .createHmac("sha256" ,salt)
+                .update(user.password)
+                .digest("hex");
+
+     this.salt = salt;
+     this.password = hashedPassword;           
+})
 
 const  User = mongoose.model("user" , userSchema);
 
