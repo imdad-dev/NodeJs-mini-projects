@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
 
     salt : {
         type : String ,
-        required : true ,
+        // required : true ,
     } ,
 
     password : {
@@ -38,7 +38,7 @@ const userSchema = new mongoose.Schema({
 userSchema.pre("save" , async function (){
     const user = this;
 if(!user.isModified("password")) return ; 
-const salt = crypto.randomBytes(16).toString;
+const salt = crypto.randomBytes(16).toString();
 const hashedPassword = crypto
                 .createHmac("sha256" ,salt)
                 .update(user.password)
