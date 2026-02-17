@@ -1,6 +1,6 @@
 import User from "../models/user.model.js";
 import express from "express";
-import { handleUserSignup } from "../controller/user.controller.js";
+import { handleUserSignup  , handleUserLogin} from "../controller/user.controller.js";
 
 const router = express.Router();
 
@@ -14,8 +14,7 @@ router.get("/login" ,(req , res)=>{
 })
 
 router.post("/signup" , handleUserSignup);
-router.post("/login" , (req, res)=>{
-  return res.redirect("/");
-});
+router.post("/login" ,handleUserLogin );
+ 
 
 export default router;

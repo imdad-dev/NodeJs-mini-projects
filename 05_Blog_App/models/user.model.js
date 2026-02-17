@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import crypto from "crypto"
+import { createTokenForUser } from "../utils/auth.util.js"
+
 const userSchema = new mongoose.Schema({
  
     fullName : {
@@ -44,9 +46,41 @@ const hashedPassword = crypto
                 .update(user.password)
                 .digest("hex");
 
-     this.salt = salt;
+     user.salt = salt;
      this.password = hashedPassword;           
-})
+});
+
+// static function --> match password and create token 
+
+userSchema.static("matchPasswordAndGenerateToken" , async function (email , password){
+    
+const user = await this.findOne({email});
+
+if(!user) {
+    throw new Error("User Not Found !");
+}
+
+const salt = user.salt; 
+
+// console.log("current Salt : " , salt)
+
+const hashedPassword = user.password ; 
+
+const userProvideHashedPassword = crypto
+.createHmac("sha256" ,salt)
+.update(password)
+.digest("hex");
+
+if ( ! userProvideHashedPassword === hashedPassword) {
+     throw new Error ("Incorrect password")
+}
+
+const token =createTokenForUser(user);
+return token; 
+
+
+} )
+
 
 const  User = mongoose.model("user" , userSchema);
 

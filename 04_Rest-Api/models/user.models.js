@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
     
      avatar : {
         type : String ,
-        default :  "https://robohash.org/voluptatempariaturducimus.png?size=50x50&set=set1" ,
+        default :  "https://robohash.org/voluptatempariaturducimus.png?size=50x50&set=set1",
      }
 
 } , {

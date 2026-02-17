@@ -2,7 +2,8 @@ import express  from "express";
 import connectMongo from "./DB/connect.js";
 import path from "path";
 import userRoute from "./routes/user.route.js"
-
+import cookieParser from "cookie-parser";
+import {checkForAuthinticationCookie} from "./middleware/auth.mdl.js"
 
 const app = express();
 const PORT = 8000;
@@ -17,6 +18,9 @@ app.set("views" , path.resolve("./views"))
 //middleware 
 app.use(express.json());
 app.use(express.urlencoded({extended : false}));
+app.use(cookieParser());
+app.use(checkForAuthinticationCookie("token"))
+
 
 app.get("/" ,(req , res)=>{
      
