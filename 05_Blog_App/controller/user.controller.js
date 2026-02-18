@@ -30,7 +30,7 @@ console.log(token)
 
 const UserProfile =  (req , res) => {
  
-    console.log(req.res);
+    console.log(req.user);
     return res.render("profile" , { user : req.user })
 }
 

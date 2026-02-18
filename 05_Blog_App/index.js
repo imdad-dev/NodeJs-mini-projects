@@ -4,6 +4,8 @@ import path from "path";
 import userRoute from "./routes/user.route.js"
 import cookieParser from "cookie-parser";
 import {checkForAuthinticationCookie} from "./middleware/auth.mdl.js"
+import Blog from "./models/blog.model.js"
+import blogRoute from "./routes/blog.route.js"
 
 const app = express();
 const PORT = 8000;
@@ -31,6 +33,7 @@ app.get("/" ,(req , res)=>{
 })
 
 app.use("/user" , userRoute)
+app.use("/blog" , blogRoute)
 
 app.listen(PORT , ()=>{
 console.log(`Server is lisnetng at https://localhost:${PORT}`);
