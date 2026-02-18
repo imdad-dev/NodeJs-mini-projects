@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import crypto from "crypto"
 
-const secret = crypto.randomBytes(64).toString(); // --> usaully write .env file 
+const secret = "Im$bhai!`TumGreat=Ho!!"; // --> usaully write .env file 
 
 const createTokenForUser  = (user)=>{
     const payload = {

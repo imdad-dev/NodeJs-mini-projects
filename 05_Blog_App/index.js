@@ -18,13 +18,16 @@ app.set("views" , path.resolve("./views"))
 //middleware 
 app.use(express.json());
 app.use(express.urlencoded({extended : false}));
+app.use(express.static(path.resolve("./public")))
 app.use(cookieParser());
 app.use(checkForAuthinticationCookie("token"))
 
 
 app.get("/" ,(req , res)=>{
-     
-    res.render("home");
+     console.log(req.user)
+    res.render("home" , { 
+        user : req.user 
+    });
 })
 
 app.use("/user" , userRoute)

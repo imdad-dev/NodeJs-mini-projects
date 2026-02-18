@@ -28,7 +28,15 @@ console.log(token)
     }
 }
 
+const UserProfile =  (req , res) => {
+ 
+    console.log(req.res);
+    return res.render("profile" , { user : req.user })
+}
+
 
 export  { handleUserSignup ,
     handleUserLogin ,
+    UserProfile
+ 
 }

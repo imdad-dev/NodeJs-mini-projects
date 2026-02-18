@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('./partials/head') %>
+    <title> Profile </title>
+</head>
+<body>
+   <%- include('./partials/nav') %> 
+<div class="container mt-5">
+    <div class="card mx-auto" style="max-width: 500px;">
+        <div class="card-body text-center">
+            <img src="<%= user.profileImageURL %>" class="rounded-circle mb-3" width="100">
+<%# 
+            <!-- profile image  url --> l is small care it  --> %>
+
+            
+            <h3><%= user.fullName %></h3>
+            <p class="text-muted"><%= user.email %></p>
+            <button class="btn btn-sm btn-outline-secondary">Edit Profile</button>
+        </div>
+    </div>
+</div>
+
+ <%- include('./partials/script') %>
+</body>
+</html>

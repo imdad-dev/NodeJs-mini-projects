@@ -14,33 +14,37 @@
           <a class="nav-link active" href="/">Home</a>
         </li>
         
+        <% if (locals.user) { %>
           <li class="nav-item">
           <a class="nav-link" href="/blog/add-new">Add Blog</a>
         </li>
-                    <li class="nav-item">
+        <% } else {%> 
+
+                   <li class="nav-item">
           <a class="nav-link" href="/user/login">Signin</a>
 
                    <li class="nav-item">
           <a class="nav-link" href="/user/signup">Create Account</a>
         </li>
-      
+        <% } %> 
         
       </ul>
 
 <!-- 
       for UserName Display write separatly but work on later  -->
 
- 
+ <% if (locals.user) { %>
       
     <ul class="navbar-nav ms-auto">
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-      Imdad
-      <img src="" 
+      
+      <img src="<%= user.profileImageURL %>" 
            alt="Profile" 
            class="rounded-circle me-2" 
            style="width: 30px; height: 30px; object-fit: cover; border: 1px solid rgba(255,255,255,0.2);">
- 
+      
+      <span><%= user.fullName%></span>
     </a>
 
     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark shadow">
@@ -51,9 +55,15 @@
     </ul>
   </li>
 </ul>
-       
+        <% } else {%> 
 
-        
+                   <li class="nav-item">
+          <a class="nav-link" href="/user/login">Signin</a>
+
+                   <li class="nav-item">
+          <a class="nav-link" href="/user/signup">Create Account</a>
+        </li>
+        <% } %> 
 
  
     </div>
