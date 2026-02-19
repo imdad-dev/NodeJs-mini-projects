@@ -1,5 +1,5 @@
 import Blog from "../models/blog.model.js"
- 
+import Comment from "../models/comment.model.js"; 
 
 const AddNewBlog  =(  async (req , res) =>{
 
@@ -19,15 +19,19 @@ const AddNewBlog  =(  async (req , res) =>{
         createdBy : req. user._id , 
         coverImage : `/uploads/${req.file.filename}`
     })
-    return res.redirect(`blog/${blog._id}`)
+    return res.redirect(`/blog/${blog._id}`)
 })
+
+// ----------view or read blog Content ------------//
 
 const viewBlogContent = async (req , res) =>{
   const blog = await Blog.findById(req.params.id).populate("createdBy")  // populate --> id wise view blog only 
-   
+  const  comments = await Comment.find({blogId : req.params.id}).populate("createdBy")
+
   return res.render ("blog" , {
     user : req.user ,
     blog , 
+    comments ,
     
   })
 }
