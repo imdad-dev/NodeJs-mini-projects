@@ -1,6 +1,6 @@
 import User from "../models/user.model.js";
 import express from "express";
-import { handleUserSignup  , handleUserLogin ,UserProfile } from "../controller/user.controller.js";
+import { handleUserSignup  , handleUserLogin ,UserProfile ,userDashboardDisplay } from "../controller/user.controller.js";
 
 const router = express.Router();
 
@@ -23,6 +23,7 @@ router.post("/login" ,handleUserLogin );
 
  //profile 
  router.get("/profile" , UserProfile)
+ router.get(`/dashboard` , userDashboardDisplay)
  
 
 export default router;

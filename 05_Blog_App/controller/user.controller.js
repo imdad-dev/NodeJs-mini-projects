@@ -1,5 +1,5 @@
 import User  from '../models/user.model.js';
-
+import Blog from "../models/blog.model.js"
 const handleUserSignup = async  (req , res) => {
 
     const { fullName , email , password} = req.body;
@@ -34,9 +34,19 @@ const UserProfile =  (req , res) => {
     return res.render("profile" , { user : req.user })
 }
 
+const userDashboardDisplay = async (req , res) =>{
+
+    const userBlog= await Blog.find({createdBy : req.params._id}) 
+
+    return res.render("dashboard" , {
+       user : req.user ,
+        blogs : userBlog ,
+    })
+}
 
 export  { handleUserSignup ,
     handleUserLogin ,
-    UserProfile
+    UserProfile ,
+    userDashboardDisplay
  
 }

@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('./partials/head') %>
+    <title>Dashboard</title>
+</head>
+<body>
+   <%- include('./partials/nav') %> 
+ <div class="container mt-4">
+    <h2>Your Published Blogs</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% blogs.forEach(blog => { %>
+                <tr>
+                    <td><%= blog.title %></td>
+                    <td>
+                        <a href="/blog/edit/<%= blog._id %>" class="btn btn-sm btn-info">Edit</a>
+                        <form action="/blog/delete/<%= blog._id %>?_method=DELETE" method="POST" style="display:inline;">
+                            <button class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+ <%- include('./partials/script') %>
+</body>
+</html>
