@@ -9,7 +9,7 @@ const user = await User.create({
     email , 
     password ,
 });
-console.log(user)
+ 
 
 return res.redirect("/")
 };
@@ -30,7 +30,7 @@ console.log(token)
 
 const UserProfile =  (req , res) => {
  
-    console.log(req.user);
+    // console.log(req.user);
     return res.render("profile" , { user : req.user })
 }
 
