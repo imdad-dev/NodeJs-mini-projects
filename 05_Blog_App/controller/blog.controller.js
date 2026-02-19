@@ -22,5 +22,14 @@ const AddNewBlog  =(  async (req , res) =>{
     return res.redirect(`blog/${blog._id}`)
 })
 
+const viewBlogContent = async (req , res) =>{
+  const blog = await Blog.findById(req.params.id).populate("createdBy")  // populate --> id wise view blog only 
+   
+  return res.render ("blog" , {
+    user : req.user ,
+    blog , 
+    
+  })
+}
 
-export { AddNewBlog }
+export { AddNewBlog  ,viewBlogContent }

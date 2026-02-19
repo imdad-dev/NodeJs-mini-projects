@@ -25,10 +25,13 @@ app.use(cookieParser());
 app.use(checkForAuthinticationCookie("token"))
 
 
-app.get("/" ,(req , res)=>{
-     console.log(req.user)
+app.get("/" , async (req , res)=>{
+     console.log(req.user);
+     const blogs = await Blog.find({});
     res.render("home" , { 
-        user : req.user 
+        user : req.user  ,
+          blogs ,
+
     });
 })
 
