@@ -6,7 +6,10 @@ import upload from "../utils/multer.util.js"
 import {handleBlogContent} from "../controller/comment.js"
 
 router.get("/add-blog" , (req , res)=>{
-    return res.render("addBlog");
+    console.log(req.user)
+    return res.render("addBlog" ,{
+        user : req.user ,
+    });
 })
 
 

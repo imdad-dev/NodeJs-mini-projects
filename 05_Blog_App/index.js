@@ -26,7 +26,7 @@ app.use(checkForAuthinticationCookie("token"))
 
 
 app.get("/" , async (req , res)=>{
-     console.log(req.user);
+    //  console.log(req.user);
      const blogs = await Blog.find({});
     res.render("home" , { 
         user : req.user  ,

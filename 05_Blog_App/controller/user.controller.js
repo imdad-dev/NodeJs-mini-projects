@@ -36,11 +36,13 @@ const UserProfile =  (req , res) => {
 
 const userDashboardDisplay = async (req , res) =>{
 
-    const userBlog= await Blog.find({createdBy : req.params._id}) 
+  const userBlogs = await Blog.find({ createdBy: req.user._id });
+
+    // console.log(userBlogs)
 
     return res.render("dashboard" , {
        user : req.user ,
-        blogs : userBlog ,
+        blogs : userBlogs ,
     })
 }
 
