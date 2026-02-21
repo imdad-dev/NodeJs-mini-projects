@@ -36,4 +36,13 @@ const viewBlogContent = async (req , res) =>{
   })
 }
 
-export { AddNewBlog  ,viewBlogContent }
+const deleteBlog = async (req , res)=>{
+  try {
+    await Blog.findByIdAndDelete(req.params.blogId)
+    return  res.redirect('/user/dashboard');
+  } catch (err) {
+    res.status(500).send('Could not delete');
+  }
+}
+
+export { AddNewBlog  ,viewBlogContent ,deleteBlog }
