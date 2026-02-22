@@ -63,25 +63,39 @@ return res.render("editBlog" , {
   }
 }
 
-const updateBlog = async (req , res) =>{
-  const { title , coverImage , content} = req.body;
-const id = req.params.blogId ;
-  const updateBlog = await Blog.findByIdAndUpdate( id , {
-    title , 
-    coverImage , 
-    content , 
-     
-  }  , { new : true , 
-      runValidators : true
-  });
+// updateBlog put method 
 
-  if(! updateBlog) {
-    return res.status(404).send("Blog Not Found -404");
-  } 
+const updateBlog = async (req, res) => {
+  try {
+    const { title, coverImage, body} = req.body;
+    const id = req.params.blogId;
 
-  return res.redirect("/user/dashboard");
+    console.log("Updating blog:", id);           // debug
+    console.log("New data:", { title, coverImage, body });
 
-}
+    const updatedBlog = await Blog.findByIdAndUpdate(
+      id,
+      { $set: { title, coverImage, body } },   // ← safer
+      { new: true, runValidators: true, omitUndefined: true }
+    );
+
+    if (!updatedBlog) {
+      console.log("Blog not found:", id);
+      return res.status(404).json({ message: "Blog not found" });
+      // or render error page
+    }
+
+    console.log("Updated successfully:", updatedBlog._id);
+
+    return res.redirect(`/blog/${id}`);
+      // better for confirmation
+
+  } catch (err) {
+    console.error("Update error:", err);
+    return res.status(500).json({ message: "Server error", error: err.message });
+    // or res.render("error", { message: "Failed to update" });
+  }
+};
 
 export { AddNewBlog  , 
   viewBlogContent , 

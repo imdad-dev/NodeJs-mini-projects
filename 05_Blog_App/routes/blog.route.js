@@ -19,7 +19,7 @@ router.get("/:id" , viewBlogContent);
 router.post("/comment/:blogId" ,handleBlogContent)
 router.post("/delete/:blogId", deleteBlog)
 router.get("/edit/:blogId", renderEditBlog)
-router.put("/:blogId", updateBlog)
+router.post("/:blogId", upload.single("coverImage") , updateBlog)
 
 
 export default router; 

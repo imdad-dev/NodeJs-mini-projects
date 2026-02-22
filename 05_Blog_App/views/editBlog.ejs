@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
    <%- include('./partials/head') %>
-    <title>Edit Blog</title>
+    <title><%= title %></title>
  </head>
  <body>
  
@@ -14,7 +14,7 @@
 <div class="container mt-5">
   <h2>Edit Blog Post</h2>
 
-  <form action="/blog/<%= blog._id %>" method="PUT">
+  <form action="/blog/<%= blog._id %>" method="post" enctype="multipart/form-data">
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
       <input 
@@ -26,26 +26,31 @@
         required
       >
     </div>
+
    <div class="mb-3">
-      <label for="image" class="form-label">Cover Image</label>
+      <label for="coverImage" class="form-label">Cover Image</label>
       <input 
         type="file" 
         class="form-control" 
         id="coverImage" 
-        name="coverImage" 
-        value="<%= blog.coverImage || '' %>"
-      >
+        name="coverImage"
+        <!-- remove value=... → file inputs can't be pre-filled for security -->
+   
+      <!-- Optional: show current image -->
+      <% if (blog.coverImage) { %>
+        <small>Current Image : <img src=" <%= blog.coverImage %>" alt="coverImage Not working " width="150" height="200"></small>
+      <% } %>
     </div>
 
     <div class="mb-3">
-      <label for="content" class="form-label">Content</label>
+      <label for="content" class="form-label">Content : </label>
       <textarea 
         class="form-control" 
         id="content" 
-        name="content" 
+        name="body" 
         rows="10" 
         required
-      ><%= blog.content %></textarea>
+      ><%= blog.body %></textarea>
     </div>
 
     <button type="submit" class="btn btn-primary">Update Blog</button>
