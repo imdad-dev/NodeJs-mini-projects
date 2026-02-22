@@ -14,7 +14,7 @@
 <div class="container mt-5">
   <h2>Edit Blog Post</h2>
 
-  <form action="/blog/<%= blog._id %>?_method=PUT" method="POST">
+  <form action="/blog/<%= blog._id %>" method="PUT">
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
       <input 
@@ -33,7 +33,7 @@
         class="form-control" 
         id="coverImage" 
         name="coverImage" 
-        value="<%= blog.image || '' %>"
+        value="<%= blog.coverImage || '' %>"
       >
     </div>
 
@@ -47,9 +47,6 @@
         required
       ><%= blog.content %></textarea>
     </div>
-
- 
-  
 
     <button type="submit" class="btn btn-primary">Update Blog</button>
     <a href="/user/dashboard" class="btn btn-secondary">Cancel</a>

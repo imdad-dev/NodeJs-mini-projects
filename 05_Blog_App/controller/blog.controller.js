@@ -46,7 +46,7 @@ const deleteBlog = async (req , res)=>{
 }
 
 // edit blog post get method and render editBlog page 
-const editBlog = async (req , res) =>{
+const renderEditBlog = async (req , res) =>{
   try {
    const blog =  await Blog.findById( req.params.blogId );
    if(! blog) {
@@ -54,7 +54,8 @@ const editBlog = async (req , res) =>{
    }
 return res.render("editBlog" , {
   blog , 
-  title : "Edit blog post"
+  title : "Edit blog post" ,
+  user : req.user ,
 })
 
   } catch (error) {
@@ -62,7 +63,28 @@ return res.render("editBlog" , {
   }
 }
 
+const updateBlog = async (req , res) =>{
+  const { title , coverImage , content} = req.body;
+const id = req.params.blogId ;
+  const updateBlog = await Blog.findByIdAndUpdate( id , {
+    title , 
+    coverImage , 
+    content , 
+     
+  }  , { new : true , 
+      runValidators : true
+  });
+
+  if(! updateBlog) {
+    return res.status(404).send("Blog Not Found -404");
+  } 
+
+  return res.redirect("/user/dashboard");
+
+}
+
 export { AddNewBlog  , 
   viewBlogContent , 
   deleteBlog ,  
-  editBlog }
+  renderEditBlog ,
+updateBlog , }
