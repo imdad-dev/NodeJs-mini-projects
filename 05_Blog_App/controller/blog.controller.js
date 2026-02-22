@@ -45,4 +45,24 @@ const deleteBlog = async (req , res)=>{
   }
 }
 
-export { AddNewBlog  ,viewBlogContent ,deleteBlog }
+// edit blog post get method and render editBlog page 
+const editBlog = async (req , res) =>{
+  try {
+   const blog =  await Blog.findById( req.params.blogId );
+   if(! blog) {
+    return res.status(404).send("blog Not Found : 404")
+   }
+return res.render("editBlog" , {
+  blog , 
+  title : "Edit blog post"
+})
+
+  } catch (error) {
+    return res.status(500).send("Server Error" , error)
+  }
+}
+
+export { AddNewBlog  , 
+  viewBlogContent , 
+  deleteBlog ,  
+  editBlog }
