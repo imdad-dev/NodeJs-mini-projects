@@ -24,6 +24,12 @@ router.post("/login" ,handleUserLogin );
  //profile 
  router.get("/profile" , UserProfile)
  router.get(`/dashboard` , userDashboardDisplay)
+
+ // edit -profile 
+ router.get("/edit-profile" , async (req , res)=>{
+  const user = await User.find({});
+  return res.render("edit-profile"  , { user })
+ })
  
 
 export default router;

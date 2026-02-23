@@ -25,7 +25,7 @@ const AddNewBlog  =(  async (req , res) =>{
 // ----------view or read blog Content ------------//
 
 const viewBlogContent = async (req , res) =>{
-  const blog = await Blog.findById(req.params.id).populate("createdBy")  // populate --> id wise view blog only 
+  const blog = await Blog.findById(req.params.id).populate("createdBy")     // populate --> id wise view blog only 
   const  comments = await Comment.find({blogId : req.params.id}).populate("createdBy")
 
   return res.render ("blog" , {
