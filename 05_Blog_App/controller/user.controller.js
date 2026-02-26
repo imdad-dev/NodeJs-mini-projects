@@ -74,7 +74,7 @@ const editUserProfile = async (req, res)=>{
   // create newToken
         const newToken =  createTokenForUser(user)
 
-        console.log(newToken)
+        // console.log(newToken)
         return res.cookie("token" , newToken).redirect("/user/profile");
 
 

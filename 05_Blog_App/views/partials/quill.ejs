@@ -1,0 +1,49 @@
+<script>
+    // 1. Initialize Quill
+const quill = new Quill('#editor', {
+    theme: 'snow',
+    modules: {
+        toolbar: [
+            [{ 'header': [1, 2, false] }],
+            ['bold', 'italic', 'underline'],
+            ['code-block', 'link']
+        ],
+        // THE FIX: The Clipboard Matcher
+        clipboard: {
+            matchers: [
+                [Node.ELEMENT_NODE, function(node, delta) {
+                    delta.forEach(op => {
+                        if (op.attributes) {
+                            // Remove background and text colors from pasted content
+                            delete op.attributes.background;
+                            delete op.attributes.color;
+                        }
+                    });
+                    return delta;
+                }]
+            ]
+        }
+    }
+});
+
+    const form = document.getElementById('blogForm');
+
+    form.addEventListener('submit', function (e) {
+        // 2. Get the hidden textarea and the content from Quill
+        const bodyInput = document.getElementById('body');
+        const htmlContent = quill.root.innerHTML;
+
+        // 3. DEBUG: Check if JS sees the content (Check your Browser Console F12)
+        // console.log("Syncing Content...", htmlContent);
+
+        // 4. Force the value into the textarea
+        bodyInput.value = htmlContent;
+
+        // 5. Final Validation: If Quill is empty, stop the submission
+        if (quill.getText().trim().length === 0) {
+            e.preventDefault();
+            alert("Content cannot be empty!");
+            return false;
+        }
+    });
+</script>

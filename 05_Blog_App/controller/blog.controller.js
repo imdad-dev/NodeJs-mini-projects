@@ -11,7 +11,10 @@ const AddNewBlog  =(  async (req , res) =>{
       });
     }
 
-    const { title , body} = req.body;
+    try {
+      
+      const { title , body} = req.body;
+    // console.log(req.body)
 
     const blog = await Blog.create ({
         title , 
@@ -20,6 +23,13 @@ const AddNewBlog  =(  async (req , res) =>{
         coverImage : `/uploads/${req.file.filename}`
     })
     return res.redirect(`/blog/${blog._id}`)
+
+    } catch (error) {
+      console.error("SAVE ERROR:", error.message);
+        // Instead of a 500 crash, send the user back with an error message
+        res.status(400).render("addBlog", { error: "Failed to save blog. Please try again." });
+
+    }
 })
 
 // ----------view or read blog Content ------------//
