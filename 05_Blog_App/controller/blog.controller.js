@@ -70,8 +70,8 @@ const updateBlog = async (req, res) => {
     const { title, coverImage, body} = req.body;
     const id = req.params.blogId;
 
-    console.log("Updating blog:", id);           // debug
-    console.log("New data:", { title, coverImage, body });
+  //  console.log("Updating blog:", id);           // debug
+  //  console.log("New data:", { title, coverImage, body });
 
     const updatedBlog = await Blog.findByIdAndUpdate(
       id,
@@ -85,7 +85,7 @@ const updateBlog = async (req, res) => {
       // or render error page
     }
 
-    console.log("Updated successfully:", updatedBlog._id);
+    // console.log("Updated successfully:", updatedBlog._id);
 
     return res.redirect(`/blog/${id}`);
       // better for confirmation

@@ -1,6 +1,6 @@
 import User from "../models/user.model.js";
 import express from "express";
-import { handleUserSignup  , handleUserLogin ,UserProfile ,userDashboardDisplay } from "../controller/user.controller.js";
+import { handleUserSignup  , handleUserLogin ,UserProfile ,userDashboardDisplay  , editUserProfile } from "../controller/user.controller.js";
 
 const router = express.Router();
 
@@ -27,9 +27,11 @@ router.post("/login" ,handleUserLogin );
 
  // edit -profile 
  router.get("/edit-profile" , async (req , res)=>{
-  const user = await User.find({});
-  return res.render("edit-profile"  , { user })
+  
+  console.log(req.user)
+  return res.render("edit-profile"  , { user : req.user })
  })
  
+ router.post("/edit-profile" ,editUserProfile )
 
 export default router;

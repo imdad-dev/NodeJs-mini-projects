@@ -34,9 +34,8 @@
         class="form-control" 
         id="coverImage" 
         name="coverImage"
-        <!-- remove value=... → file inputs can't be pre-filled for security -->
-   
-      <!-- Optional: show current image -->
+
+      <!--  show current image -->
       <% if (blog.coverImage) { %>
         <small>Current Image : <img src=" <%= blog.coverImage %>" alt="coverImage Not working " width="150" height="200"></small>
       <% } %>
