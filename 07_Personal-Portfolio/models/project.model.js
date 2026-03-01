@@ -8,7 +8,8 @@ const projectSchema = new mongoose.Schema({
     }  ,
     coverImage : {
               type : String , 
-        required : false ,
+         default : " https://placehold.co/600x400" ,
+         
     } ,
 
     description : {

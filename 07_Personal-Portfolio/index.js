@@ -28,7 +28,7 @@ app.get("/test-db" , async (req, res)=>{
 
   const project =  await Project.create(  {
     title : "Test title project" ,
-    coverImage : "/public/images/prject-1" ,
+   
     description : "This is test portfolio project" ,
     link : "http://imdad-dev/portfolio"
 
@@ -36,6 +36,16 @@ app.get("/test-db" , async (req, res)=>{
   console.log("prject: " , project);
 
   res.send(" created project model on mongoDB")
+
+})   
+
+app.get("/project" , async (req , res)=>{
+
+  const projects = await Project.find ();  // fetch all projectc
+  console.log(projects)
+  res.render("project" , { 
+    projects 
+  })
 
 })
 
