@@ -14,3 +14,5 @@
 .card:hover {
   transform: scale(1.05);
 }
+
+.container { max-width: 1200px; }

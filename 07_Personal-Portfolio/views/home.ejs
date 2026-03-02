@@ -1,17 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Personal Portfolio</title>
-  <link rel="stylesheet" href="/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
-</head>
-<body>
+ <%- include("partials/head", { title : "Home"}) %>
   <%- include("partials/navbar.ejs")  %>
   <div class="container mt-5">
     <h1 class="text-center">Welcome to My Portfolio</h1>
     <p class="text-center">Built with Node.js, Express, EJS, MongoDB, and Bootstrap.</p>
   </div>
-  <script src="/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS -->
-</body>
-</html>
+  
+<%- include("partials/footer") %>

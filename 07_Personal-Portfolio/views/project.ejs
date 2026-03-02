@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Projects</title>
-  <link rel="stylesheet" href="/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/css/custom.css">
-</head>
-<body>
+  <%- include("partials/head", { title : "My projects"}) %>
 
 <%- include("partials/navbar.ejs")  %>
   <div class="container mt-5">
     <h1 class="text-center">My Projects</h1>
-    <div class="row fade-in">
+    <div class="row ">
+  
       <% projects.forEach(project => { %>
         <div class="col-md-4 mb-4">
           <div class="card">
@@ -27,7 +19,5 @@
       <% }); %>
     </div>
   </div>
-  <script src="/js/bootstrap.bundle.min.js"></script>
-  <script src="/js/animation.js"></script>
-</body>
-</html>
+  
+  <%- include("partials/footer") %>

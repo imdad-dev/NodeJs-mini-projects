@@ -6,6 +6,9 @@ import Project from "./models/project.model.js";
 const app = express();
 const port = process.env.PORT || 3000;
 
+//middlewares
+app.use(express.urlencoded({extended :true}))
+
 app.set('view engine', 'ejs'); // Set EJS as template engine
 app.use(express.static('public')); // Serve static files from public folder
 
@@ -46,6 +49,10 @@ app.get("/project" , async (req , res)=>{
 
 app.get("/skills" , (req , res)=>{
     res.render("skills")
+})
+
+app.get("/contact" , (req , res)=>{
+    res.render("contact")
 })
 
 
