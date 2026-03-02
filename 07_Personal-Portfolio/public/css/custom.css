@@ -1,0 +1,16 @@
+/* Fade-in animation */
+.fade-in {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+.fade-in.visible {
+  opacity: 1;
+}
+
+/* Card hover effect */
+.card {
+  transition: transform 0.3s ease;
+}
+.card:hover {
+  transform: scale(1.05);
+}
