@@ -4,6 +4,11 @@ import connectMongoDB from "./DB/connectDB.js";
 import nodemailer from 'nodemailer';
 
 import Project from "./models/project.model.js";
+import User from "./models/user.js"
+import { createTokenForUser } from "./utils/auth.js";
+import { authMiddleware } from "./middlewares/auth.mdl.js";
+import bcrypt from "bcryptjs";
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -101,5 +106,37 @@ res.redirect('/contact?success=true');
 });
 
 app.get("/login" , (req , res) => res.render("login"));
+
+// Updated login POST route with proper password comparison
+app.post("/login", async (req, res) => {
+  const { username, email, password } = req.body;
+
+  // Find user by email (or username if preferred – adjust as needed)
+  const user = await User.findOne({ email });
+
+  // Check if user exists and password matches (using bcrypt.compare)
+  if (!user || !(await bcrypt.compare(password, user.password))) {
+    return res.render("login", {
+      error: "Invalid credentials"  // Unified error message
+    });
+  }
+
+  try {
+    // Create and set token (assuming createTokenForUser returns a JWT string)
+    const token = createTokenForUser(user);
+    
+    // Set Authorization header and redirect
+    // Note: For browser redirects, consider using cookies for token persistence instead of headers
+    res.header("Authorization", `Bearer ${token}`);  // Add 'Bearer ' prefix if your middleware expects it
+    return res.redirect("/admin");
+  } catch (error) {
+    console.error("Token creation error:", error);  // Log for debugging
+    return res.render("login", {
+      error: "Login failed – please try again"
+    });
+  }
+});
+// Admin route example
+app.get('/admin', authMiddleware, (req, res) => res.send("Admin Area") );
 
 export default app;

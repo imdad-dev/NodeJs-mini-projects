@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken"
 import crypto from "crypto";
-import Project from "../models/project.model";
+
 
 const createTokenForUser = (user)=>{
     const payload ={
@@ -17,7 +17,7 @@ const validateToken = (token)=>{
     if (!token) return null;
 
     try {
-        jwt.verify(payload , process.env.JWT_SECRET)
+      return   jwt.verify(token, process.env.JWT_SECRET)
     } catch (error) {
          return null;
     }
