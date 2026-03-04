@@ -100,4 +100,6 @@ res.redirect('/contact?success=true');
   }
 });
 
+app.get("/login" , (req , res) => res.render("login"));
+
 export default app;

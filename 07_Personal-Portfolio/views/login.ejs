@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%- include('./partials/head' , { title :" Login page" }) %>
+    <title>Login Page</title>
+</head>
+<body>
+   <%- include('./partials/navbar') %> 
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-lg border-0" style="width: 100%; max-width: 400px; border-radius: 1rem;">
+        <div class="card-body p-5">
+            <h2 class="fw-bold mb-2 text-center">Login</h2>
+        
+            <form method="post" action="/login">
+                
+            <div class="mb-3">
+                    <label for="username" class="form-label fw-semibold">Username</label>
+                    <input type="username" class="form-control form-control-lg bg-light border-0" id="email" placeholder="Enter a username" name="username" required>
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="email" class="form-label fw-semibold">Email address</label>
+                    <input type="email" class="form-control form-control-lg bg-light border-0" id="email" placeholder="name@example.com" name="email" required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="password" class="form-label fw-semibold">Password</label>
+                    <input type="password" class="form-control form-control-lg bg-light border-0" name="password" placeholder="••••••••" required>
+                </div>
+
+                <div class="d-grid">
+                    <button class="btn btn-primary btn-lg shadow-sm" type="submit" style="border-radius: 0.5rem;">Signin</button>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <small class="text-muted">If not Signup ? <a href="#" class="text-decoration-none fw-bold">Signup</a></small>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+   </div>
+<%- include("partials/footer") %>
+</body>
+</html>
