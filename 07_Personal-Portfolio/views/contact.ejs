@@ -1,6 +1,17 @@
 <%- include('partials/head', { title: 'Contact Me' }) %>
     <%- include('partials/navbar') %>
 
+<% if (success) { %>
+  <div class="alert alert-success">
+    Message sent successfully!
+  </div>
+<% } %>
+
+<% if (error) { %>
+  <div class="alert alert-danger">
+    Something went wrong, please try again.
+  </div>
+<% } %>
 
         <div class="container mt-5 ">
             <h1 class="text-center">Contact me</h1>

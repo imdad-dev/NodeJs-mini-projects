@@ -1,10 +1,16 @@
+import dotenv from "dotenv"
 import express from "express"
-
+import connectMongoDB from "./DB/connectDB.js";
+import nodemailer from 'nodemailer';
 
 import Project from "./models/project.model.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
+dotenv.config();
+
+// mongo connect
+connectMongoDB(process.env.MONGODB_URI);
 
 //middlewares
 app.use(express.urlencoded({extended :true}))
@@ -52,8 +58,46 @@ app.get("/skills" , (req , res)=>{
 })
 
 app.get("/contact" , (req , res)=>{
-    res.render("contact")
+  const success = req.query.success === 'true';
+  const error = req.query.success === 'false';
+  
+  // Render the page and pass the variables to the view
+  res.render('contact', { success, error });
 })
 
+// 1. Create the transporter once (outside the route)
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass:"dgcphteaathzoeur"
+  },
+  // Add these two to fix your specific environment issues:
+  family: 4, 
+  tls: {
+    rejectUnauthorized: false
+  }
+});
+
+
+app.post('/contact', async (req, res) => {
+  const { name, email, message } = req.body;
+
+  try {
+    // 2. Wrap in try/catch to handle failures
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER, // Gmail requires 'from' to be the authenticated user
+      replyTo: email,               // Use replyTo to get the user's actual email
+      to: process.env.EMAIL_USER,
+      subject: `New message from ${name}`,
+      text: message
+    });
+    
+res.redirect('/contact?success=true');
+  } catch (error) {
+    console.error('Email failed:', error);
+    res.status(500).send('Something went wrong.');
+  }
+});
 
 export default app;
