@@ -1,7 +1,7 @@
 const express = require('express');
 const qrcode = require('qrcode');
 
-const inquirer = require('inquirer');
+// const inquirer = require('inquirer');
 
 const app = express();
 const PORT = 3000;
