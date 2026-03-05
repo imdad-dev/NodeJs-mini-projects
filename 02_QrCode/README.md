@@ -2,7 +2,13 @@
 
 A simple and user-friendly web application that generates QR codes from text or URLs with customizable color and size.
 
- <Screnshot Here Add later>
+## How looks Like📸
+
+### Home Page
+<image  alt="Home Screenshot" src="images/home.png" ></image>
+
+### Generated QR Code
+<img alt="QR Result" src="images/generate.png" > 
 
 ## Features
 
