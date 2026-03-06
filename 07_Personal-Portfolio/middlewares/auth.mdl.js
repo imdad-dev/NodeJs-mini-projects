@@ -1,8 +1,14 @@
+import { validateToken } from "../utils/auth.js"
+
 const authMiddleware = (req, res, next) => {
-  const token = req.header('Authorization');
+  const tokenAuthValue = req.header('Authorization');
+  console.log(tokenAuthValue)
+const token = tokenAuthValue.split("Bearer ")[1];
+console.log(token)
+
   if (!token) return res.redirect('/login');
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded =  validateToken(token)
     req.user = decoded;
     next();
   } catch (err) { res.redirect('/login'); }

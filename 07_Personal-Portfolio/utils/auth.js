@@ -3,7 +3,8 @@ import crypto from "crypto";
 
 
 const createTokenForUser = (user)=>{
-    const payload ={
+ try {
+        const payload ={
         _id : user._id ,
         username : user.username ,
         email : user.email 
@@ -11,6 +12,11 @@ const createTokenForUser = (user)=>{
 
     const token =jwt.sign(payload ,process.env.JWT_SECRET , {expiresIn : "1d"});
     return token;
+
+ } catch (error) {
+    
+    console.error("Token Generate Error : " , error);
+ }
 }
 
 const validateToken = (token)=>{

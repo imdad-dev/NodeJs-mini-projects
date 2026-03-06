@@ -105,6 +105,23 @@ res.redirect('/contact?success=true');
   }
 });
 
+app.get("/signup" , (req , res)=>{
+  res.render("signup");
+})
+
+
+app.post("/signup" , async(req , res)=>{
+  const { username , email , password} = req.body
+ await User.create({
+  username ,
+  email , 
+  password
+ })
+
+ res.redirect("/")
+})
+
+
 app.get("/login" , (req , res) => res.render("login"));
 
 // Updated login POST route with proper password comparison
@@ -113,9 +130,9 @@ app.post("/login", async (req, res) => {
 
   // Find user by email (or username if preferred – adjust as needed)
   const user = await User.findOne({ email });
+  console.log(user) 
 
-  // Check if user exists and password matches (using bcrypt.compare)
-  if (!user || !(await bcrypt.compare(password, user.password))) {
+  if (!user) {
     return res.render("login", {
       error: "Invalid credentials"  // Unified error message
     });
@@ -126,8 +143,8 @@ app.post("/login", async (req, res) => {
     const token = createTokenForUser(user);
     
     // Set Authorization header and redirect
-    // Note: For browser redirects, consider using cookies for token persistence instead of headers
-    res.header("Authorization", `Bearer ${token}`);  // Add 'Bearer ' prefix if your middleware expects it
+
+    res.header("Authorization", token);  // 
     return res.redirect("/admin");
   } catch (error) {
     console.error("Token creation error:", error);  // Log for debugging
@@ -137,6 +154,6 @@ app.post("/login", async (req, res) => {
   }
 });
 // Admin route example
-app.get('/admin', authMiddleware, (req, res) => res.send("Admin Area") );
+app.get('/admin',  authMiddleware, (req, res) => res.send("Admin Area") );
 
 export default app;
