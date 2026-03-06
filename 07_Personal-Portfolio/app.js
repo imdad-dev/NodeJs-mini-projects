@@ -9,6 +9,8 @@ import { createTokenForUser } from "./utils/auth.js";
 import { authMiddleware } from "./middlewares/auth.mdl.js";
 import bcrypt from "bcryptjs";
 
+import cookieParser from "cookie-parser";
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -19,6 +21,7 @@ connectMongoDB(process.env.MONGODB_URI);
 
 //middlewares
 app.use(express.urlencoded({extended :true}))
+app.use(cookieParser())
 
 app.set('view engine', 'ejs'); // Set EJS as template engine
 app.use(express.static('public')); // Serve static files from public folder
@@ -138,14 +141,24 @@ app.post("/login", async (req, res) => {
     });
   }
 
+  // Add password comparison (assuming bcrypt is imported and used)
+  const isPasswordValid = await bcrypt.compare(password, user.password);  // Fix: Add this line
+  if (!isPasswordValid) {
+    return res.render("login", {
+      error: "Invalid credentials"
+    });
+  }
+
+
   try {
     // Create and set token (assuming createTokenForUser returns a JWT string)
     const token = createTokenForUser(user);
+    console.log( 'Token : ',token)
+    res.set('Authorization', `Bearer ${token}`);
     
-    // Set Authorization header and redirect
-
-    res.header("Authorization", token);  // 
-    return res.redirect("/admin");
+    // Return JSON success (no body token needed since in header; client stores from header)
+    res.json({ success: true });
+      // return res.redirect("/admin");
   } catch (error) {
     console.error("Token creation error:", error);  // Log for debugging
     return res.render("login", {
