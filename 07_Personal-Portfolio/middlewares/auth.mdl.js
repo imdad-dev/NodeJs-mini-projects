@@ -4,7 +4,7 @@ const authMiddleware = async (req, res, next) => {
   console.log(req.headers)
  const authHeader = req.headers.authorization;
 
-  console.log(authHeader)
+  console.log("AuthHeader" , authHeader)
 // Early check: If no header or doesn't start with 'Bearer '
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     console.log('Auth error: No or invalid Authorization header', { authHeader }); // Debug log
@@ -18,7 +18,7 @@ console.log(token)
   try {
     const decoded =  validateToken(token)
     req.user = decoded;
-    next();
+    return next();
   } catch (err) { res.redirect('/login'); }
 };
 

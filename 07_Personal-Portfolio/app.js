@@ -140,24 +140,16 @@ app.post("/login", async (req, res) => {
       error: "Invalid credentials"  // Unified error message
     });
   }
-
-  // Add password comparison (assuming bcrypt is imported and used)
-  const isPasswordValid = await bcrypt.compare(password, user.password);  // Fix: Add this line
-  if (!isPasswordValid) {
-    return res.render("login", {
-      error: "Invalid credentials"
-    });
-  }
-
+ 
 
   try {
     // Create and set token (assuming createTokenForUser returns a JWT string)
     const token = createTokenForUser(user);
     console.log( 'Token : ',token)
-    res.set('Authorization', `Bearer ${token}`);
+  
     
     // Return JSON success (no body token needed since in header; client stores from header)
-    res.json({ success: true });
+    res.json({ token});
       // return res.redirect("/admin");
   } catch (error) {
     console.error("Token creation error:", error);  // Log for debugging
@@ -167,6 +159,6 @@ app.post("/login", async (req, res) => {
   }
 });
 // Admin route example
-app.get('/admin',  authMiddleware, (req, res) => res.send("Admin Area") );
+app.get('/admin',  authMiddleware, (req, res) => res.send("This Adim Area Page where only admin can access!") );
 
 export default app;
