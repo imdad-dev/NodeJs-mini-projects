@@ -1,19 +1,43 @@
-  <%- include("partials/head", { title : "My Skills"}) %>
+<%- include("partials/head", { title : "My Skills"}) %>
 
- <%- include("partials/navbar") %>
-<div class="container mt-5 ">
-  <h1 class="text-center">My Skills</h1>
-  <div class="row">
-    <div class="col-md-6">
-      <p>HTML/CSS/JS</p>
-      <div class="progress"><div class="progress-bar" style="width: 90%;">90%</div></div>
+<%- include("partials/navbar") %>
+
+<style>
+  #globe-container {
+    width: 100%;
+    height: 500px;
+    margin: 20px auto;
+    border: 2px solid red; /* TEMP: Bright border to see if container shows */
+    position: relative;
+    background: #000; /* Black bg for globe visibility */
+  }
+  .skills-list { margin-top: 30px; }
+</style>
+
+<div class="container mt-5">
+  <h1 class="text-center mb-4">My Skills</h1>
+  
+  <!-- Globe container -->
+  <div id="globe-container">
+    <p style="color: white; text-align: center; padding: 200px;">Loading 3D Globe... (Check console if blank)</p> <!-- Fallback text -->
+  </div>
+  
+  <!-- Skills list -->
+  <div class="skills-list">
+    <div class="row">
+      <div class="col-md-6">
+        <p>HTML/CSS/JS</p>
+        <div class="progress"><div class="progress-bar" style="width: 90%;">90%</div></div>
+      </div>
+      <div class="col-md-6">
+        <p>Node.js/Express</p>
+        <div class="progress"><div class="progress-bar" style="width: 80%;">80%</div></div>
+      </div>
+      <!-- More skills... -->
     </div>
-    <div class="col-md-6">
-      <p>Node.js/Express</p>
-      <div class="progress"><div class="progress-bar" style="width: 80%;">80%</div></div>
-    </div>
-    <!-- Add more -->
   </div>
 </div>
- 
+
+
+
 <%- include("partials/footer") %>
