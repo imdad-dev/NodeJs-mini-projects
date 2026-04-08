@@ -1,8 +1,111 @@
- <%- include("partials/head", { title : "Home"}) %>
-  <%- include("partials/navbar.ejs")  %>
-  <div class="container mt-5">
-    <h1 class="text-center">Welcome to My Portfolio</h1>
-    <p class="text-center">Built with Node.js, Express, EJS, MongoDB, and Bootstrap.</p>
+<%- include('partials/head', { title: 'Imdadul | Full Stack Developer' }) %>
+<%- include('partials/navbar') %>
+
+<!-- Hero Section -->
+<section class="bg-dark text-white py-5" style="min-height: 100vh; display: flex; align-items: center;">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-7 fade-in">
+        <h1 class="display-3 fw-bold mb-3">
+          Hi, I'm <span class="text-primary">Imdadul</span>
+        </h1>
+        <h2 class="display-6 text-muted mb-4">Full Stack Developer from Kolkata</h2>
+        
+        <p class="lead mb-5 col-lg-9">
+          I build modern, scalable web applications using MERN Stack (MongoDB, Express, React, Node.js). 
+          Passionate about clean code and creating delightful user experiences.
+        </p>
+
+        <div class="d-flex flex-wrap gap-3">
+          <a href="/projects" class="btn btn-primary btn-lg px-5">View My Projects</a>
+          <a href="/contact" class="btn btn-outline-light btn-lg px-5">Get In Touch</a>
+          <a href="/resume.pdf" class="btn btn-success btn-lg px-5" download>
+            📄 Download Resume
+          </a>
+        </div>
+
+        <div class="mt-5">
+          <small class="text-muted">Currently open to internships & full-time opportunities</small>
+        </div>
+      </div>
+
+      <!-- Profile Image -->
+      <div class="col-lg-5 text-center mt-5 mt-lg-0 fade-in" style="animation-delay: 0.3s;">
+        <div class="position-relative">
+          <img src="/images/profile.jpg" 
+               alt="Imdadul Profile" 
+               class="img-fluid rounded-circle shadow-lg" 
+               style="width: 320px; height: 320px; object-fit: cover; border: 8px solid #0d6efd;">
+          <div class="position-absolute bottom-0 end-0 bg-success text-white px-3 py-1 rounded-pill shadow">
+            Available for Work
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  
-<%- include("partials/footer") %>
+</section>
+
+<!-- Quick About Teaser -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h2 class="fw-bold mb-4">About Me</h2>
+        <p class="lead">
+          I'm a self-taught Full Stack Developer based in Kolkata, West Bengal. 
+          I love turning ideas into reality with code.
+        </p>
+        <p>
+          With strong skills in Node.js, Express, MongoDB, and frontend technologies, 
+          I focus on building fast, responsive, and user-friendly applications.
+        </p>
+        <a href="/about" class="btn btn-outline-primary">Read Full About →</a>
+      </div>
+      <div class="col-lg-6 mt-4 mt-lg-0">
+        <div class="bg-white p-4 rounded shadow-sm">
+          <h5 class="text-primary mb-3">Quick Facts</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2">✅ MERN Stack Specialist</li>
+            <li class="mb-2">✅ Built 10+ Full Stack Projects</li>
+            <li class="mb-2">✅ Strong in REST APIs & Authentication</li>
+            <li class="mb-2">✅ Always learning new technologies</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills Preview -->
+<section class="py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h3 class="fw-bold">Core Skills</h3>
+      <p class="text-muted">Technologies I work with daily</p>
+    </div>
+    
+    <div class="row g-4 text-center">
+      <% if (typeof skills !== 'undefined' && skills.length > 0) { %>
+        <% skills.slice(0, 6).forEach(skill => { %>
+          <div class="col-6 col-md-4 col-lg-2">
+            <div class="p-4 border rounded-3 skill-preview">
+              <div class="fs-1 mb-2"><%= skill.icon %></div>
+              <h6><%= skill.name %></h6>
+              <small class="text-muted"><%= skill.percentage %>% Proficiency</small>
+            </div>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <div class="col-12 text-center text-muted">
+          <p>Add some skills from admin to see preview here</p>
+        </div>
+      <% } %>
+    </div>
+    
+    <div class="text-center mt-4">
+      <a href="/skills" class="btn btn-primary">View All Skills →</a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

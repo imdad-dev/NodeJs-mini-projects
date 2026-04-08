@@ -26,8 +26,18 @@ app.use(cookieParser())
 app.set('view engine', 'ejs'); // Set EJS as template engine
 app.use(express.static('public')); // Serve static files from public folder
 
-app.get('/', (req, res) => { 
-  res.render("home")
+// Home Route - Modern Hero + Skills Preview
+app.get('/', async (req, res) => {
+  try {
+    const skills = await Skill.find().sort({ category: 1 }).limit(6); // Show only 6 skills in preview
+    res.render('home', { 
+      title: 'Imdadul | Full Stack Developer',
+      skills 
+    });
+  } catch (err) {
+    console.error(err);
+    res.render('home', { skills: [] });
+  }
 });
 
 app.get('/about', (req, res) => { 

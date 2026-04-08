@@ -18,6 +18,26 @@
 .container { max-width: 1200px; }
 
 
+/* Hero Improvements */
+section.bg-dark {
+  background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 100%);
+}
+
+.skill-preview {
+  transition: all 0.4s ease;
+}
+
+.skill-preview:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(13, 110, 253, 0.15);
+  border-color: #0d6efd;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
 
 /* Modern Skills Styling */
 .skill-item {
