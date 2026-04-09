@@ -11,6 +11,8 @@ import bcrypt from "bcryptjs";
 
 import cookieParser from "cookie-parser";
 
+import Skill from "./models/skill.model.js"
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -59,9 +61,16 @@ app.get("/project" , async (req , res)=>{
 })
 
 
-app.get("/skills" , (req , res)=>{
-    res.render("skills")
-})
+// Public Skills Page (Dynamic)
+app.get('/skills', async (req, res) => {
+  try {
+    const skills = await Skill.find().sort({ category: 1 });
+    res.render('skills', { skills });
+  } catch (err) {
+    console.error(err);
+    res.render('skills', { skills: [] });
+  }
+});
 
 app.get("/contact" , (req , res)=>{
   const success = req.query.success === 'true';
@@ -189,5 +198,35 @@ app.post("/login", async (req, res) => {
 });
 // Admin route example
 app.get('/admin',  authMiddleware, (req, res) => res.send("This Adim Area Page where only admin can access!") );
+
+// =============== ADMIN SKILLS ROUTES (Protected) ===============
+
+// Admin Skills Management Page
+app.get('/admin/skills', authMiddleware, async (req, res) => {
+  const skills = await Skill.find().sort({ category: 1 });
+  res.render('admin/skills', { skills });
+});
+
+// Add New Skill
+app.post('/admin/skills/add', authMiddleware, async (req, res) => {
+  try {
+    const { category, name, percentage, icon } = req.body;
+    const newSkill = new Skill({ category, name, percentage, icon });
+    await newSkill.save();
+    res.redirect('/admin/skills');
+  } catch (err) {
+    res.status(500).send('Error adding skill');
+  }
+});
+
+// Delete Skill
+app.post('/admin/skills/delete/:id', authMiddleware, async (req, res) => {
+  try {
+    await Skill.findByIdAndDelete(req.params.id);
+    res.redirect('/admin/skills');
+  } catch (err) {
+    res.status(500).send('Error deleting skill');
+  }
+});
 
 export default app;

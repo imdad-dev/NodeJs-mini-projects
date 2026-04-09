@@ -112,36 +112,27 @@
   </div>
 </section>
 
-<!-- Skills Preview -->
-<section class="py-5">
+<!-- Premium Skills Preview -->
+<section class="py-5 bg-light">
   <div class="container">
     <div class="text-center mb-5">
       <h3 class="fw-bold">Core Skills</h3>
-      <p class="text-muted">Technologies I work with daily</p>
+      <p class="text-muted">Technologies I master</p>
     </div>
     
     <div class="row g-4 text-center">
-      <% if (typeof skills !== 'undefined' && skills.length > 0) { %>
-        <% skills.slice(0, 6).forEach(skill => { %>
-          <div class="col-6 col-md-4 col-lg-2">
-            <div class="p-4 border rounded-3 skill-preview">
-              <div class="fs-1 mb-2"><%= skill.icon %></div>
-              <h6><%= skill.name %></h6>
-              <small class="text-muted"><%= skill.percentage %>% Proficiency</small>
-            </div>
-          </div>
-        <% }); %>
-      <% } else { %>
-        <div class="col-12 text-center text-muted">
-          <p>Add some skills from admin to see preview here</p>
-        </div>
-      <% } %>
+      <div class="col-6 col-md-4 col-lg-2"><div class="tech-pill">JavaScript</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="tech-pill">Node.js</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="tech-pill">Express</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="tech-pill">MongoDB</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="tech-pill">React</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="tech-pill">Bootstrap</div></div>
+      <div class="col-6 col-md-4 col-lg-2"><div class="tech-pill">JWT Auth</div></div>
     </div>
     
-    <div class="text-center mt-4">
-      <a href="/skills" class="btn btn-primary">View All Skills →</a>
+    <div class="text-center mt-5">
+      <a href="/skills" class="btn btn-primary btn-lg px-5">Explore All Skills →</a>
     </div>
   </div>
 </section>
-
 <%- include('partials/footer') %>

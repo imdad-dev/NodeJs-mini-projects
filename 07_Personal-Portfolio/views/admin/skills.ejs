@@ -1,0 +1,60 @@
+<%- include('../partials/head', { title: 'Admin - Skills' }) %>
+<%- include('../partials/admin-navbar') %>
+
+<div class="container mt-4">
+  <h2>Manage Skills</h2>
+
+  <!-- Add Form -->
+  <div class="card mb-5">
+    <div class="card-body">
+      <form action="/admin/skills/add" method="POST" class="row g-3">
+        <div class="col-md-3">
+          <select name="category" class="form-select" required>
+            <option value="Frontend">Frontend</option>
+            <option value="Backend">Backend</option>
+            <option value="Tools">Tools</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <input type="text" name="name" class="form-control" placeholder="Skill Name" required>
+        </div>
+        <div class="col-md-2">
+          <input type="number" name="percentage" class="form-control" placeholder="%" min="0" max="100" required>
+        </div>
+        <div class="col-md-2">
+          <input type="text" name="icon" class="form-control" placeholder="Emoji" value="⭐">
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-success w-100">Add Skill</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Skills List -->
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Icon</th><th>Category</th><th>Skill</th><th>Percentage</th><th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% skills.forEach(skill => { %>
+        <tr>
+          <td><%= skill.icon %></td>
+          <td><%= skill.category %></td>
+          <td><%= skill.name %></td>
+          <td><%= skill.percentage %>%</td>
+          <td>
+            <form action="/admin/skills/delete/<%= skill._id %>" method="POST" style="display:inline" 
+                  onsubmit="return confirm('Delete?')">
+              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../partials/footer') %>
