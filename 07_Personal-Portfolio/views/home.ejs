@@ -20,7 +20,7 @@
         </p>
 
         <div class="d-flex flex-wrap gap-3">
-          <a href="/projects" class="btn btn-primary btn-lg px-5">View My Projects</a>
+          <a href="/project" class="btn btn-primary btn-lg px-5">View My Projects</a>
           <a href="/contact" class="btn btn-outline-light btn-lg px-5">Get In Touch</a>
           <a href="/resume.pdf" class="btn btn-success btn-lg px-5" download>
             📄 Download Resume
@@ -92,13 +92,13 @@
         <% featuredProjects.forEach(project => { %>
           <div class="col-md-6 col-lg-4">
             <div class="card h-100 shadow-sm">
-              <% if (project.image) { %>
-                <img src="/images/<%= project.image %>" class="card-img-top" alt="<%= project.title %>" style="height: 180px; object-fit: cover;">
+              <% if (project.coverImage) { %>
+                <img src="<%= project.coverImage %>" class="card-img-top" alt="<%= project.title %>" style="height: 180px; object-fit: cover;">
               <% } %>
               <div class="card-body">
                 <h5 class="card-title"><%= project.title %></h5>
                 <p class="card-text text-muted"><%= project.description.substring(0, 100) %>...</p>
-                <a href="/projects" class="btn btn-sm btn-primary">View All Projects →</a>
+                <a href="/project" class="btn btn-sm btn-primary">View All Projects →</a>
               </div>
             </div>
           </div>

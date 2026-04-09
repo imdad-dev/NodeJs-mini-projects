@@ -30,12 +30,12 @@ app.use(express.static('public')); // Serve static files from public folder
 // Home Route with Featured Projects
 app.get('/', async (req, res) => {
   try {
-    const skills = await Skill.find().sort({ category: 1 }).limit(6);
+    // const skills = await Skill.find().sort({ category: 1 }).limit(6);
     const featuredProjects = await Project.find({ featured: true }).limit(3);
     
     res.render('home', { 
       title: 'Imdadul | Full Stack Developer',
-      skills,
+      // skills,
       featuredProjects
     });
   } catch (err) {
