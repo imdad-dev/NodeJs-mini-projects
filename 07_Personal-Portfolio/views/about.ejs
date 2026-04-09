@@ -1,11 +1,98 @@
+ 
+ <%- include('partials/head', { title: 'About Me' }) %>
+<%- include('partials/navbar') %>
 
- <%- include("partials/head", { title : "About"}) %>
+<div class="container mt-5 fade-in">
 
-  <%- include("partials/navbar.ejs")  %>
-  <div class="container mt-5">
-    <h1 class="text-center">About Me</h1>
-    <p class="text-center">I'm a aspiring developer from Assam, skilled in HTML, CSS, JS, Node.js, Express, MongoDB, and more. Building this portfolio to crack a job/internship!</p>
-    <!--  bio, photo (upload to public/images), etc. -->
-    <img src="/images/profile.jpg" alt="Profile" width="400" class="img-fluid mx-auto d-block">  
+  <!-- Hero About -->
+  <div class="row align-items-center mb-5">
+    <div class="col-lg-6">
+      <h1 class="display-4 fw-bold">About Me</h1>
+      <p class="lead text-muted">
+        Aspiring Full Stack Developer from Kolkata, passionate about building scalable web applications.
+      </p>
+      <p>
+        I love turning ideas into reality using the MERN stack. Currently focused on learning modern web technologies 
+        and looking for internship or full-time opportunities where I can contribute and grow.
+      </p>
+    </div>
+    <div class="col-lg-6 text-center">
+      <img src="/images/profile.jpg" 
+           alt="Imdadul" 
+           class="img-fluid rounded-circle shadow" 
+           style="width: 280px; height: 280px; object-fit: cover; border: 6px solid #0d6efd;">
+    </div>
   </div>
- <%- include("partials/footer") %>
+
+  <!-- Education -->
+  <div class="mb-5">
+    <h3 class="fw-bold mb-4">Education</h3>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>B.Tech in Computer Science & Engineering</h5>
+        <p class="text-muted">Assam university (central),silchar • Graduation: 2028</p>
+        <p>Currently pursuing B.Tech. Strong foundation in Data Structures, Algorithms,mern stack mastery, Web Development and Database Management.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Experience Timeline -->
+  <div class="mb-5">
+    <h3 class="fw-bold mb-4">Experience & Projects</h3>
+    
+    <div class="timeline">
+      <!-- Item 1 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h5>Personal Portfolio Website</h5>
+          <p class="text-muted">Jan 2026 - Present</p>
+          <p>Built a full-stack dynamic portfolio using Node.js, Express, MongoDB, EJS and Bootstrap with admin panel.</p>
+        </div>
+      </div>
+
+ 
+      <!-- Item 2 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h5>Project Management Tool</h5>
+          <p class="text-muted">Nov 2025</p>
+          <p>Created a collaborative project management application with team features and task assignment.</p>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h5>Blog Platform</h5>
+          <p class="text-muted">Jan 2026</p>
+          <p>Built a full-stack blogging engine featuring Markdown support, dynamic routing, and a custom CMS for seamless content publishing.</p>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h5>URL Shortener</h5>
+          <p class="text-muted">Feb 2026</p>
+          <p>Created a high-performance link management tool with custom aliases, click analytics, and automated QR code generation.</p>
+        </div>
+      </div>
+
+      <!-- You can add more items here later -->
+    </div>
+  </div>
+
+  <!-- Call to Action -->
+  <div class="text-center py-5 bg-light rounded-3">
+    <h4>Interested in working with me?</h4>
+    <p class="mb-4">I'm actively looking for Full Stack Developer internships or entry-level positions.</p>
+    <a href="/contact" class="btn btn-primary btn-lg px-5">Let's Connect</a>
+  </div>
+
+</div>
+
+<%- include('partials/footer') %>
