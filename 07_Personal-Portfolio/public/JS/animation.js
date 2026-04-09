@@ -59,3 +59,18 @@ window.onload = function() {
   }, 800);
 };
  
+
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+  const navbar = document.getElementById('mainNavbar');
+  
+  if (window.scrollY > 30) {
+    if (!navbar.classList.contains('scrolled')) {
+      navbar.classList.add('scrolled');
+    }
+  } else {
+    if (navbar.classList.contains('scrolled')) {
+      navbar.classList.remove('scrolled');
+    }
+  }
+}, { passive: true });
