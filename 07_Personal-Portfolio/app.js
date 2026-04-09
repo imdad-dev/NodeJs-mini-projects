@@ -47,23 +47,7 @@ app.get('/', async (req, res) => {
 app.get('/about', (req, res) => { 
   res.render("about")
 });
-
-
-app.get("/test-db" , async (req, res)=>{
-
-  const project =  await Project.create(  {
-    title : "Test title project" ,
-   
-    description : "This is test portfolio project" ,
-    link : "http://imdad-dev/portfolio"
-
-  });
-  console.log("prject: " , project);
-
-  res.send(" created project model on mongoDB")
-
-})   
-
+ 
 app.get("/project" , async (req , res)=>{
 
   const projects = await Project.find ();  // fetch all projectc
@@ -101,24 +85,55 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-
+// Contact Form Route
 app.post('/contact', async (req, res) => {
-  const { name, email, message } = req.body;
-
   try {
-    // 2. Wrap in try/catch to handle failures
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER, // Gmail requires 'from' to be the authenticated user
-      replyTo: email,               // Use replyTo to get the user's actual email
-      to: process.env.EMAIL_USER,
-      subject: `New message from ${name}`,
-      text: message
+    const { name, email, message } = req.body;
+
+    // Basic server-side validation
+    if (!name || !email || !message) {
+      return res.render('contact', { 
+        error: 'All fields are required!' 
+      });
+    }
+
+    if (message.length < 10) {
+      return res.render('contact', { 
+        error: 'Message is too short. Please write more details.' 
+      });
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+      }
     });
-    
-res.redirect('/contact?success=true');
-  } catch (error) {
-    console.error('Email failed:', error);
-    res.status(500).send('Something went wrong.');
+
+    await transporter.sendMail({
+      from: email,
+      to: process.env.EMAIL_USER,
+      subject: `New Portfolio Message from ${name}`,
+      html: `
+        <h3>New Message from Portfolio</h3>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message}</p>
+        <hr>
+        <p>Sent from Imdadul's Portfolio Website</p>
+      `
+    });
+
+    // Success
+    res.render('contact', { success: true });
+
+  } catch (err) {
+    console.error('Email error:', err);
+    res.render('contact', { 
+      error: 'Failed to send message. Please try again later.' 
+    });
   }
 });
 

@@ -1,30 +1,99 @@
 <%- include('partials/head', { title: 'Contact Me' }) %>
-    <%- include('partials/navbar') %>
+<%- include('partials/navbar') %>
 
-<% if (success) { %>
-  <div class="alert alert-success">
-    Message sent successfully!
-  </div>
-<% } %>
+<div class="container mt-5 fade-in">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-5">
+          <h2 class="text-center fw-bold mb-4">Get In Touch</h2>
+          <p class="text-center text-muted mb-5">
+            Have a project in mind? Or looking for a Full Stack intern? Feel free to reach out!
+          </p>
 
-<% if (error) { %>
-  <div class="alert alert-danger">
-    Something went wrong, please try again.
-  </div>
-<% } %>
+          <% if (typeof success !== 'undefined' && success) { %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Thank you!</strong> Your message has been sent successfully. I'll reply soon.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          <% } %>
 
-        <div class="container mt-5 ">
-            <h1 class="text-center">Contact me</h1>
-            <form action="/contact" method="POST" class="mt-4">
-                <div class="mb-3"><label for="name" class="form-label">Name</label><input type="text"
-                        class="form-control" id="name" name="name" required></div>
-                <div class="mb-3"><label for="email" class="form-label">Email</label><input type="email"
-                        class="form-control" id="email" name="email" required></div>
-                <div class="mb-3"><label for="message" class="form-label">Message</label><textarea class="form-control"
-                        id="message" name="message" rows="5" required></textarea></div>
-                <button type="submit" class="btn btn-primary">Send</button>
-            </form>
+          <% if (typeof error !== 'undefined' && error) { %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <%= error %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          <% } %>
+
+          <form action="/contact" method="POST" id="contactForm">
+            <div class="mb-4">
+              <label class="form-label">Your Name</label>
+              <input type="text" 
+                     class="form-control form-control-lg" 
+                     name="name" 
+                     id="name" 
+                     placeholder="Imdadul Hoque" 
+                     required>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Email Address</label>
+              <input type="email" 
+                     class="form-control form-control-lg" 
+                     name="email" 
+                     id="email" 
+                     placeholder="your.email@gmail.com" 
+                     required>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Message</label>
+              <textarea class="form-control form-control-lg" 
+                        name="message" 
+                        id="message" 
+                        rows="6" 
+                        placeholder="Write your message here..." 
+                        required></textarea>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" 
+                      class="btn btn-primary btn-lg" 
+                      id="submitBtn">
+                Send Message
+              </button>
+            </div>
+          </form>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
 
+<%- include('partials/footer') %>
 
-        <%- include('partials/footer') %>
+<script>
+  // Simple client-side validation
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+    const submitBtn = document.getElementById('submitBtn');
+
+    if (name.length < 3) {
+      e.preventDefault();
+      alert("Name should be at least 3 characters long");
+      return;
+    }
+
+    if (message.length < 10) {
+      e.preventDefault();
+      alert("Message should be at least 10 characters long");
+      return;
+    }
+
+    // Disable button while submitting
+    submitBtn.innerHTML = 'Sending...';
+    submitBtn.disabled = true;
+  });
+</script>
