@@ -9,8 +9,11 @@
         <h1 class="display-3 fw-bold mb-3">
           Hi, I'm <span class="text-primary">Imdadul</span>
         </h1>
-        <h2 class="display-6 text-muted mb-4">Full Stack Developer from Kolkata</h2>
-        
+
+      <h2 class="display-6 text-muted mb-4" id="dynamic-title">
+  <span id="typing-text"></span>
+  <span class="cursor">|</span>
+</h2>   
         <p class="lead mb-5 col-lg-9">
           I build modern, scalable web applications using MERN Stack (MongoDB, Express, React, Node.js). 
           Passionate about clean code and creating delightful user experiences.
@@ -72,6 +75,39 @@
           </ul>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Projects -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h3 class="fw-bold">Featured Projects</h3>
+      <p class="text-muted">Some of my best work</p>
+    </div>
+    
+    <div class="row g-4">
+      <% if (featuredProjects && featuredProjects.length > 0) { %>
+        <% featuredProjects.forEach(project => { %>
+          <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm">
+              <% if (project.image) { %>
+                <img src="/images/<%= project.image %>" class="card-img-top" alt="<%= project.title %>" style="height: 180px; object-fit: cover;">
+              <% } %>
+              <div class="card-body">
+                <h5 class="card-title"><%= project.title %></h5>
+                <p class="card-text text-muted"><%= project.description.substring(0, 100) %>...</p>
+                <a href="/projects" class="btn btn-sm btn-primary">View All Projects →</a>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <div class="col-12 text-center text-muted">
+          <p>No featured projects yet. Mark some in admin later.</p>
+        </div>
+      <% } %>
     </div>
   </div>
 </section>

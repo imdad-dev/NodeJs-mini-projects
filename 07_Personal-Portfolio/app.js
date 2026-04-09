@@ -27,16 +27,20 @@ app.set('view engine', 'ejs'); // Set EJS as template engine
 app.use(express.static('public')); // Serve static files from public folder
 
 // Home Route - Modern Hero + Skills Preview
+// Home Route with Featured Projects
 app.get('/', async (req, res) => {
   try {
-    const skills = await Skill.find().sort({ category: 1 }).limit(6); // Show only 6 skills in preview
+    const skills = await Skill.find().sort({ category: 1 }).limit(6);
+    const featuredProjects = await Project.find({ featured: true }).limit(3);
+    
     res.render('home', { 
       title: 'Imdadul | Full Stack Developer',
-      skills 
+      skills,
+      featuredProjects
     });
   } catch (err) {
     console.error(err);
-    res.render('home', { skills: [] });
+    res.render('home', { skills: [], featuredProjects: [] });
   }
 });
 

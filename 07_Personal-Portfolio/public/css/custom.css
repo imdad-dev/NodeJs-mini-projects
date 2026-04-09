@@ -38,6 +38,52 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Modern Typing Animation - Premium Look */
+#dynamic-title {
+  font-size: 2.1rem;
+  font-weight: 500;
+  min-height: 65px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+ color: #6a6868;
+}
+
+#typing-text {
+  position: relative;
+  color: #08ee5d;
+  font-weight: 600;
+}
+
+.cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1.1em;
+  background: #0d6efd;
+  margin-left: 4px;
+  vertical-align: middle;
+  animation: blink 0.7s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Erase + Type Animation Container */
+.typing-container {
+  overflow: hidden;
+  border-right: 3px solid #0d6efd;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+
+/* Optional: Add subtle glow to the cursor */
+.cursor {
+  box-shadow: 0 0 8px #0d6efd;
+}
+
 
 /* Modern Skills Styling */
 .skill-item {
@@ -82,4 +128,18 @@ html {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+
+.project-card {
+  transition: all 0.4s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12) !important;
+}
+
+.badge {
+  font-size: 0.75rem;
 }
