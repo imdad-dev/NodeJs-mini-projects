@@ -52,7 +52,12 @@
     </div>
   </div>
 </footer>
-
+<script>
+  // Show loading on page navigation
+  window.addEventListener('beforeunload', () => {
+    document.getElementById('loading').style.display = 'flex';
+  });
+</script>
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/animation.js"></script>
 </body>
