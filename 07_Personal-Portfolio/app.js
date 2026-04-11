@@ -183,12 +183,9 @@ app.post("/login", async (req, res) => {
   try {
     // Create and set token (assuming createTokenForUser returns a JWT string)
     const token = createTokenForUser(user);
-    console.log( 'Token : ',token)
-  
-  
-    // Return JSON success (no body token needed since in header; client stores from header)
-    res.json({ token});
-      // return res.redirect("/admin");
+    console.log( 'Token: ',token)
+
+      return res.cookie("token" , token).redirect("/");
   } catch (error) {
     console.error("Token creation error:", error);  // Log for debugging
     return res.render("login", {
