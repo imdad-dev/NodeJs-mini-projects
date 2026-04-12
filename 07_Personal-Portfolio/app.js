@@ -1,21 +1,17 @@
 import dotenv from "dotenv"
 import express from "express"
 import connectMongoDB from "./DB/connectDB.js";
-import nodemailer from 'nodemailer';
 
-import Project from "./models/project.model.js";
-import User from "./models/user.js"
-import { createTokenForUser } from "./utils/auth.js";
 import { authMiddleware } from "./middlewares/auth.mdl.js";
 import bcrypt from "bcryptjs";
 
 import cookieParser from "cookie-parser";
-import Skill from "./models/skill.model.js" 
+
 
 // contorller 
 import {  userSignup ,userLogin } from "./controller/auth.controller.js"
 import {getHomePage , getProjectSection , getSkillSection ,contactFormSubmit} from "./controller/nav.controller.js"
-
+import {getAdminPanel ,showSkills ,addSkill , deleteSkillById} from "./controller/admin.controller.js"
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -70,36 +66,16 @@ app.post("/login", userLogin);
 
 
 // Admin route example
-app.get('/admin',  authMiddleware, (req, res) => res.send("This Adim Area Page where only admin can access!") );
+app.get('/admin',  authMiddleware, getAdminPanel);
 
 // =============== ADMIN SKILLS ROUTES (Protected) ===============
-
 // Admin Skills Management Page
-app.get('/admin/skills', authMiddleware, async (req, res) => {
-  const skills = await Skill.find().sort({ category: 1 });
-  res.render('admin/skills', { skills });
-});
+app.get('/admin/skills', authMiddleware, showSkills);
 
 // Add New Skill
-app.post('/admin/skills/add', authMiddleware, async (req, res) => {
-  try {
-    const { category, name, percentage, icon } = req.body;
-    const newSkill = new Skill({ category, name, percentage, icon });
-    await newSkill.save();
-    res.redirect('/admin/skills');
-  } catch (err) {
-    res.status(500).send('Error adding skill');
-  }
-});
+app.post('/admin/skills/add', authMiddleware, addSkill);
 
 // Delete Skill
-app.post('/admin/skills/delete/:id', authMiddleware, async (req, res) => {
-  try {
-    await Skill.findByIdAndDelete(req.params.id);
-    res.redirect('/admin/skills');
-  } catch (err) {
-    res.status(500).send('Error deleting skill');
-  }
-});
+app.post('/admin/skills/delete/:id', authMiddleware, deleteSkillById);
 
 export default app;
