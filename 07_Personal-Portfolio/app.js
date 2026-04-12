@@ -14,6 +14,7 @@ import Skill from "./models/skill.model.js"
 
 // contorller 
 import {  userSignup ,userLogin } from "./controller/auth.controller.js"
+import {getHomePage , getProjectSection , getSkillSection ,contactFormSubmit} from "./controller/nav.controller.js"
 
 
 const app = express();
@@ -32,47 +33,17 @@ app.use(express.static('public')); // Serve static files from public folder
 
 // Home Route - Modern Hero + Skills Preview
 // Home Route with Featured Projects
-app.get('/', async (req, res) => {
-  try {
-    // const skills = await Skill.find().sort({ category: 1 }).limit(6);
-    const featuredProjects = await Project.find({ featured: true }).limit(3);
-    
-    res.render('home', { 
-      title: 'Imdadul | Full Stack Developer',
-      // skills,
-      featuredProjects
-    });
-  } catch (err) {
-    console.error(err);
-    res.render('home', { skills: [], featuredProjects: [] });
-  }
-});
+app.get('/',getHomePage);
 
 app.get('/about', (req, res) => { 
   res.render("about")
 });
  
-app.get("/project" , async (req , res)=>{
-
-  const projects = await Project.find ();  // fetch all projectc
-  console.log(projects)
-  res.render("project" , { 
-    projects 
-  })
-
-})
+app.get("/project" ,getProjectSection)
 
 
 // Public Skills Page (Dynamic)
-app.get('/skills', async (req, res) => {
-  try {
-    const skills = await Skill.find().sort({ category: 1 });
-    res.render('skills', { skills });
-  } catch (err) {
-    console.error(err);
-    res.render('skills', { skills: [] });
-  }
-});
+app.get('/skills', getSkillSection);
 
 app.get("/contact" , (req , res)=>{
   const success = req.query.success === 'true';
@@ -82,77 +53,13 @@ app.get("/contact" , (req , res)=>{
   res.render('contact', { success, error });
 })
 
-// 1. Create the transporter once (outside the route)
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass:"dgcphteaathzoeur"
-  },
-  // Add these two to fix your specific environment issues:
-  family: 4, 
-  tls: {
-    rejectUnauthorized: false
-  }
-});
-
 // Contact Form Route
-app.post('/contact', async (req, res) => {
-  try {
-    const { name, email, message } = req.body;
+app.post('/contact', contactFormSubmit);
 
-    // Basic server-side validation
-    if (!name || !email || !message) {
-      return res.render('contact', { 
-        error: 'All fields are required!' 
-      });
-    }
-
-    if (message.length < 10) {
-      return res.render('contact', { 
-        error: 'Message is too short. Please write more details.' 
-      });
-    }
-
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-      }
-    });
-
-    await transporter.sendMail({
-      from: email,
-      to: process.env.EMAIL_USER,
-      subject: `New Portfolio Message from ${name}`,
-      html: `
-        <h3>New Message from Portfolio</h3>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message}</p>
-        <hr>
-        <p>Sent from Imdadul's Portfolio Website</p>
-      `
-    });
-
-    // Success
-    res.render('contact', { success: true });
-
-  } catch (err) {
-    console.error('Email error:', err);
-    res.render('contact', { 
-      error: 'Failed to send message. Please try again later.' 
-    });
-  }
-});
 
 app.get("/signup" , (req , res)=>{
   res.render("signup");
-})
-
-
+});
 app.post("/signup" , userSignup )
 
 
@@ -160,6 +67,8 @@ app.get("/login" , (req , res) => res.render("login"));
 
 // Updated login POST route with proper password comparison
 app.post("/login", userLogin);
+
+
 // Admin route example
 app.get('/admin',  authMiddleware, (req, res) => res.send("This Adim Area Page where only admin can access!") );
 

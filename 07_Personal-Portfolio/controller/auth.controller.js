@@ -1,11 +1,5 @@
-
-import dotenv from "dotenv"
-import express from "express"
-import connectMongoDB from "../DB/connectDB.js";
-import nodemailer from 'nodemailer';
-
 import User from "../models/user.js"
-import Project from "../models/project.model.js";
+import { createTokenForUser } from "../utils/auth.js";
 
 const userSignup = async(req , res)=>{
   const { username , email , password} = req.body
