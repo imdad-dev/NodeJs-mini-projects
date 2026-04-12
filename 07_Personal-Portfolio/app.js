@@ -10,8 +10,10 @@ import { authMiddleware } from "./middlewares/auth.mdl.js";
 import bcrypt from "bcryptjs";
 
 import cookieParser from "cookie-parser";
+import Skill from "./models/skill.model.js" 
 
-import Skill from "./models/skill.model.js"
+// contorller 
+import {  userSignup ,userLogin } from "./controller/auth.controller.js"
 
 
 const app = express();
@@ -151,48 +153,13 @@ app.get("/signup" , (req , res)=>{
 })
 
 
-app.post("/signup" , async(req , res)=>{
-  const { username , email , password} = req.body
- await User.create({
-  username ,
-  email , 
-  password
- })
-
- res.redirect("/")
-})
+app.post("/signup" , userSignup )
 
 
 app.get("/login" , (req , res) => res.render("login"));
 
 // Updated login POST route with proper password comparison
-app.post("/login", async (req, res) => {
-  const { username, email, password } = req.body;
-
-  // Find user by email (or username if preferred – adjust as needed)
-  const user = await User.findOne({ email });
-  console.log(user) 
-
-  if (!user) {
-    return res.render("login", {
-      error: "Invalid credentials"  // Unified error message
-    });
-  }
- 
-
-  try {
-    // Create and set token (assuming createTokenForUser returns a JWT string)
-    const token = createTokenForUser(user);
-    console.log( 'Token: ',token)
-
-      return res.cookie("token" , token).redirect("/");
-  } catch (error) {
-    console.error("Token creation error:", error);  // Log for debugging
-    return res.render("login", {
-      error: "Login failed – please try again"
-    });
-  }
-});
+app.post("/login", userLogin);
 // Admin route example
 app.get('/admin',  authMiddleware, (req, res) => res.send("This Adim Area Page where only admin can access!") );
 
