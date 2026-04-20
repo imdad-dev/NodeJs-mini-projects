@@ -1,8 +1,9 @@
-import express from 'express';
+ import express from 'express';
 import session from 'express-session';
 import path from 'path';
 import 'dotenv/config';
 import authRoutes from './routes/authRoutes.js';
+import chatRoutes from './routes/chatRoutes.js';
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.set('views', path.resolve('views'));
 
 // ── Routes ──────────────────────────────────────────────
 app.use('/auth', authRoutes);
+app.use('/chat', chatRoutes);
 
 // ── Home ────────────────────────────────────────────────
 app.get('/', (req, res) => {
