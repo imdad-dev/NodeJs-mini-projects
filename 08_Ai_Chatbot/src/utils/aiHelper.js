@@ -1,18 +1,27 @@
-import Anthropic from '@anthropic-ai/sdk';
+ import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const client = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-});
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 
-// ── Send messages to Claude AI and get reply ────────────
+const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+
+// ── Send messages to Gemini AI and get reply ────────────
 const getAIResponse = async (messages) => {
-  const response = await client.messages.create({
-    model: 'claude-opus-4-5',
-    max_tokens: 1024,
-    messages: messages,
-  });
 
-  return response.content[0].text;
+  // Gemini needs history separate from latest message
+  const history = messages.slice(0, -1).map((msg) => ({
+    role: msg.role === 'assistant' ? 'model' : 'user',
+    parts: [{ text: msg.content }],
+  }));
+
+  const latestMessage = messages[messages.length - 1].content;
+
+  // Start chat with history
+  const chat = model.startChat({ history });
+
+  // Send latest message
+  const result = await chat.sendMessage(latestMessage);
+
+  return result.response.text();
 };
 
 export default getAIResponse;
