@@ -2,27 +2,31 @@ import express from 'express';
 import session from 'express-session';
 import path from 'path';
 import 'dotenv/config';
+import authRoutes from './routes/authRoutes.js';
 
 const app = express();
 
 // ── Middleware ──────────────────────────────────────────
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.resolve("./public")));
+app.use(express.static(path.resolve('public')));
 
 // ── Session ─────────────────────────────────────────────
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 1000 * 60 * 60 * 24 } // 1 day
+  cookie: { maxAge: 1000 * 60 * 60 * 24 },
 }));
 
 // ── View Engine ─────────────────────────────────────────
 app.set('view engine', 'ejs');
-app.set("views" , path.resolve("./views"))
+app.set('views', path.resolve('views'));
 
-// ── Routes (we add these in later tasks) ───────────────
+// ── Routes ──────────────────────────────────────────────
+app.use('/auth', authRoutes);
+
+// ── Home ────────────────────────────────────────────────
 app.get('/', (req, res) => {
   if (req.session.userId) return res.redirect('/chat');
   res.redirect('/auth/login');
