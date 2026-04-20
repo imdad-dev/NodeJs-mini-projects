@@ -7,17 +7,21 @@ import {
   logoutUser,
 } from '../controllers/authController.js';
 
+import { isGuest, isLoggedIn } from '../middleware/authMiddleware.js';
+
 const router = express.Router();
 
-// ── Register ────────────────────────────────────────────
-router.get('/register', showRegister);
-router.post('/register', registerUser);
+// ── Register (guests only) ──────────────────────────────
+router.get('/register', isGuest, showRegister);
+router.post('/register', isGuest, registerUser);
 
-// ── Login ───────────────────────────────────────────────
-router.get('/login', showLogin);
-router.post('/login', loginUser);
+// ── Login (guests only) ─────────────────────────────────
+router.get('/login', isGuest, showLogin);
+router.post('/login', isGuest, loginUser);
 
-// ── Logout ──────────────────────────────────────────────
-router.get('/logout', logoutUser);
+// ── Logout (logged in only) ─────────────────────────────
+router.get('/logout', isLoggedIn, logoutUser);
 
 export default router;
+
+ 
