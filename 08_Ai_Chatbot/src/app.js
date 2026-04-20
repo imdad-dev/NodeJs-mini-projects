@@ -1,14 +1,14 @@
-const express = require('express');
-const session = require('express-session');
-const path = require('path');
-require('dotenv').config();
+import express from 'express';
+import session from 'express-session';
+import path from 'path';
+import 'dotenv/config';
 
 const app = express();
 
 // ── Middleware ──────────────────────────────────────────
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.static(path.resolve("./public")));
 
 // ── Session ─────────────────────────────────────────────
 app.use(session({
@@ -20,7 +20,7 @@ app.use(session({
 
 // ── View Engine ─────────────────────────────────────────
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '..', 'views'));
+app.set("views" , path.resolve("./views"))
 
 // ── Routes (we add these in later tasks) ───────────────
 app.get('/', (req, res) => {
@@ -28,4 +28,4 @@ app.get('/', (req, res) => {
   res.redirect('/auth/login');
 });
 
-module.exports = app;
+export default app;
