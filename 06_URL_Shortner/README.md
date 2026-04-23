@@ -39,6 +39,8 @@ A professional, full-stack URL shortening service with user authentication, link
 
 ## 📂 Project Structure
 
+```bash
+project-root/
 ├── DB/                # Database connection configuration
 ├── controller/        # Logic for handling URL and User operations
 ├── models/            # Mongoose schemas (URL, User)
@@ -47,11 +49,27 @@ A professional, full-stack URL shortening service with user authentication, link
 ├── views/             # EJS templates for the frontend
 ├── index.js           # Entry point of the application
 └── package.json       # Dependencies and scripts
+```
+
+---
 
 ## ⚙️ Setup Instructions
 
-1. **Clone and Install**
+1. **Clone the repository**
+
    ```bash
-   git clone https://github.com/imdad-dev/NodeJs-mini-projects/tree/main/06_URL_Shortner
-   cd 06_URL_Shortner
+   git clone https://github.com/imdad-dev/NodeJs-mini-projects.git
+   cd NodeJs-mini-projects/06_URL_Shortner
+   ```
+
+2. **Install dependencies**
+
+   ```bash
    npm install
+   ```
+
+3. **Run the project**
+
+   ```bash
+   npm run dev
+   ```
