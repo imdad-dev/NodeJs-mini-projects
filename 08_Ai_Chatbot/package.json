@@ -13,12 +13,13 @@
   "type": "module",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.90.0",
-    "@google/generative-ai": "^0.24.1",
+   
     "bcryptjs": "^3.0.3",
     "dotenv": "^17.4.2",
     "ejs": "^5.0.2",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
+    "groq-sdk": "^1.1.2",
     "mongoose": "^9.4.1"
   },
   "devDependencies": {
