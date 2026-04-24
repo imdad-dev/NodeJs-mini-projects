@@ -347,6 +347,36 @@ a:hover { text-decoration: underline; }
   display: none;
 }
 
+
+/* ─------------------Rename Input ───────────────────────── */
+.rename-input {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.825rem;
+  font-weight: 500;
+  padding: 0.2rem 0.4rem;
+  outline: none;
+  width: 100%;
+}
+
+.chat-title.rename-input {
+  font-size: 0.95rem;
+  padding: 0.3rem 0.6rem;
+  max-width: 70%;
+}
+
+.conversation-title[title] {
+  cursor: pointer;
+}
+
+.conversation-title[title]:hover {
+  color: var(--accent);
+  transition: color 0.2s;
+}
+
 /* ── Main Chat Area ──────────────────────────────── */
 .chat-main {
   flex: 1;

@@ -180,3 +180,97 @@ if (searchInput) {
     noResults.style.display = visibleCount === 0 ? 'block' : 'none';
   });
 }
+
+
+// ── Rename Conversation ────────────────────────────────
+const makeRenameInput = (el, conversationId, isChatTitle = false) => {
+  const currentTitle = el.textContent.trim();
+
+  // Create input field
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.value = currentTitle;
+  input.classList.add('rename-input');
+  if (isChatTitle) input.classList.add('chat-title');
+
+  // Replace element with input
+  el.replaceWith(input);
+  input.focus();
+  input.select();
+
+  // ── Save on Enter ──────────────────────────────────
+  input.addEventListener('keydown', async (e) => {
+    if (e.key === 'Enter') await saveRename(input, el, conversationId);
+    if (e.key === 'Escape') cancelRename(input, el);
+  });
+
+  // ── Save on blur (click away) ──────────────────────
+  input.addEventListener('blur', async () => {
+    await saveRename(input, el, conversationId);
+  });
+};
+
+const saveRename = async (input, originalEl, conversationId) => {
+  const newTitle = input.value.trim();
+
+  // If empty or unchanged just cancel
+  if (!newTitle || newTitle === originalEl.textContent.trim()) {
+    cancelRename(input, originalEl);
+    return;
+  }
+
+  try {
+    const res = await fetch(`/chat/${conversationId}/rename`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title: newTitle }),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      // Update element text
+      originalEl.textContent = data.title;
+      input.replaceWith(originalEl);
+
+      // Sync sidebar title if renamed from chat header
+      const sidebarTitle = document.querySelector(
+        `.conversation-title[data-id="${conversationId}"]`
+      );
+      if (sidebarTitle) sidebarTitle.textContent = data.title;
+
+      // Sync chat header if renamed from sidebar
+      const chatTitle = document.getElementById('chatTitle');
+      if (chatTitle && chatTitle.dataset.id === conversationId) {
+        chatTitle.textContent = data.title;
+      }
+
+    } else {
+      cancelRename(input, originalEl);
+    }
+  } catch (err) {
+    console.error('Rename error:', err);
+    cancelRename(input, originalEl);
+  }
+};
+
+const cancelRename = (input, originalEl) => {
+  input.replaceWith(originalEl);
+};
+
+// ── Double click sidebar title to rename ───────────────
+document.querySelectorAll('.conversation-title[data-id]').forEach((el) => {
+  el.addEventListener('dblclick', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    makeRenameInput(el, el.dataset.id, false);
+  });
+});
+
+// ── Double click chat header title to rename ───────────
+const chatTitleEl = document.getElementById('chatTitle');
+if (chatTitleEl && chatTitleEl.dataset.id) {
+  chatTitleEl.addEventListener('dblclick', () => {
+    makeRenameInput(chatTitleEl, chatTitleEl.dataset.id, true);
+  });
+}

@@ -121,3 +121,30 @@ export const deleteConversation = async (req, res) => {
     res.status(500).json({ error: 'Failed to delete conversation' });
   }
 };
+
+
+// ── Rename Conversation ─────────────────────────────────
+export const renameConversation = async (req, res) => {
+  try {
+    const { title } = req.body;
+
+    if (!title || title.trim() === '') {
+      return res.status(400).json({ error: 'Title cannot be empty' });
+    }
+
+    const conversation = await Conversation.findOneAndUpdate(
+      { _id: req.params.id, userId: req.session.userId },
+      { title: title.trim() },
+      { new: true }
+    );
+
+    if (!conversation) {
+      return res.status(404).json({ error: 'Conversation not found' });
+    }
+
+    res.json({ success: true, title: conversation.title });
+  } catch (err) {
+    console.error('Rename error:', err.message);
+    res.status(500).json({ error: 'Failed to rename conversation' });
+  }
+};

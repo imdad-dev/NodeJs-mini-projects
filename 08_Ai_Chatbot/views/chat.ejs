@@ -1,152 +1,146 @@
 <%- include('partials/header') %>
 
-<div class="chat-wrapper">
+  <div class="chat-wrapper">
 
-  <!-- ── Sidebar ────────────────────────────────────── -->
-  <aside class="sidebar">
+    <!-- ── Sidebar ────────────────────────────────────── -->
+    <aside class="sidebar">
 
-    <div class="sidebar-header">
-      <div class="sidebar-logo">🤖 AI Chat</div>
-      <span class="sidebar-user">👤 <%= username %></span>
-    </div>
+      <div class="sidebar-header">
+        <div class="sidebar-logo">🤖 AI Chat</div>
+        <span class="sidebar-user">👤 <%= username %></span>
+      </div>
 
-    <a href="/chat/new" class="new-chat-btn">+ New Chat</a>
+      <a href="/chat/new" class="new-chat-btn">+ New Chat</a>
 
-    <div class="conversations-list">
-    <p class="conversations-label">Recent Chats</p>
-    <div class="search-box">
-  <input
-    type="text"
-    id="searchInput"
-    placeholder="🔍 Search chats..."
-    autocomplete="off"
-       />
-   </div>
+      <div class="conversations-list">
+        <p class="conversations-label">Recent Chats</p>
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="🔍 Search chats..." autocomplete="off" />
+        </div>
 
-      <% if (conversations.length === 0) { %>
-        <p class="no-conversations">No conversations yet.<br/>Start a new chat!</p>
+        <% if (conversations.length===0) { %>
+          <p class="no-conversations">No conversations yet.<br />Start a new chat!</p>
+          <% } %>
+
+            <% conversations.forEach(conv=> { %>
+              <div
+                class="conversation-item <%= activeConversation && activeConversation._id.toString() === conv._id.toString() ? 'active' : '' %>"
+                data-id="<%= conv._id %>">
+
+                <a href="/chat/<%= conv._id %>" class="conversation-link">
+                  <span class="conversation-title" data-id="<%= conv._id %>" title="Double click to rename">
+                    <%= conv.title %>
+                  </span>
+                  <span class="conversation-date">
+                    <%= new Date(conv.updatedAt).toLocaleDateString() %>
+                  </span>
+                </a>
+
+                <button class="delete-btn" data-id="<%= conv._id %>">🗑</button>
+
+              </div>
+              <% }) %>
+
+                <p class="no-results" id="noResults">No chats found.</p>
+      </div>
+
+      <div class="sidebar-footer">
+        <a href="/auth/logout" class="logout-btn">← Logout</a>
+      </div>
+
+    </aside>
+
+    <!-- ── Main Chat Area ─────────────────────────────── -->
+    <main class="chat-main">
+
+      <% if (!activeConversation) { %>
+
+        <!-- Welcome Screen -->
+        <div class="welcome-screen">
+          <div class="welcome-icon">🤖</div>
+          <h2 class="welcome-title">How can I help you today?</h2>
+          <p class="welcome-subtitle">Start a new conversation or pick one from the sidebar.</p>
+          <a href="/chat/new" class="welcome-btn">+ Start New Chat</a>
+        </div>
+
+        <% } else { %>
+
+          <!-- Chat Header -->
+          <h2 class="chat-title" id="chatTitle" data-id="<%= activeConversation._id %>" title="Double click to rename">
+            <%= activeConversation.title %>
+          </h2>
+          <span class="chat-model">✨ grok-4.20</span>
+  </div>
+
+  <!-- Messages -->
+  <div class="messages-container" id="messagesContainer">
+
+    <% if (activeConversation.messages.length===0) { %>
+      <div class="empty-chat">
+        <p>Send a message to start the conversation!</p>
+      </div>
       <% } %>
 
-      <% conversations.forEach(conv => { %>
-        <div class="conversation-item <%= activeConversation && activeConversation._id.toString() === conv._id.toString() ? 'active' : '' %>"
-             data-id="<%= conv._id %>">
-
-          <a href="/chat/<%= conv._id %>" class="conversation-link">
-            <span class="conversation-title"><%= conv.title %></span>
-            <span class="conversation-date">
-              <%= new Date(conv.updatedAt).toLocaleDateString() %>
-            </span>
-          </a>
-
-          <button class="delete-btn" data-id="<%= conv._id %>">🗑</button>
-
-        </div>
-      <% }) %>
-
-      <p class="no-results" id="noResults">No chats found.</p> 
-    </div>
-
-    <div class="sidebar-footer">
-      <a href="/auth/logout" class="logout-btn">← Logout</a>
-    </div>
-
-  </aside>
-
-  <!-- ── Main Chat Area ─────────────────────────────── -->
-  <main class="chat-main">
-
-    <% if (!activeConversation) { %>
-
-      <!-- Welcome Screen -->
-      <div class="welcome-screen">
-        <div class="welcome-icon">🤖</div>
-        <h2 class="welcome-title">How can I help you today?</h2>
-        <p class="welcome-subtitle">Start a new conversation or pick one from the sidebar.</p>
-        <a href="/chat/new" class="welcome-btn">+ Start New Chat</a>
-      </div>
-
-    <% } else { %>
-
-      <!-- Chat Header -->
-      <div class="chat-header">
-        <h2 class="chat-title" id="chatTitle"><%= activeConversation.title %></h2>
-        <span class="chat-model">✨ grok-4.20</span>
-      </div>
-
-      <!-- Messages -->
-      <div class="messages-container" id="messagesContainer">
-
-        <% if (activeConversation.messages.length === 0) { %>
-          <div class="empty-chat">
-            <p>Send a message to start the conversation!</p>
-          </div>
-        <% } %>
-
-        <% activeConversation.messages.forEach(msg => { %>
+        <% activeConversation.messages.forEach(msg=> { %>
           <div class="message <%= msg.role %>">
 
             <div class="message-avatar">
-              <%= msg.role === 'user' ? '👤' : '🤖' %>
+              <%= msg.role==='user' ? '👤' : '🤖' %>
             </div>
 
             <div class="message-bubble">
               <div class="message-role">
-                <%= msg.role === 'user' ? username : 'AI Assistant' %>
+                <%= msg.role==='user' ? username : 'AI Assistant' %>
               </div>
-              <div class="message-content"><%- msg.content.replace(/\n/g, '<br/>') %></div>
+              <div class="message-content"><%- msg.content.replace(/\n/g, '<br/>' ) %></div>
               <div class="message-time">
-                <%= new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) %>
+                <%= new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit' , minute: '2-digit' }) %>
               </div>
             </div>
 
           </div>
-        <% }) %>
+          <% }) %>
 
-        <!-- Typing indicator (hidden by default) -->
-        <div class="message assistant typing-indicator" id="typingIndicator" style="display:none;">
-          <div class="message-avatar">🤖</div>
-          <div class="message-bubble">
-            <div class="message-role">AI Assistant</div>
-            <div class="typing-dots">
-              <span></span><span></span><span></span>
+            <!-- Typing indicator (hidden by default) -->
+            <div class="message assistant typing-indicator" id="typingIndicator" style="display:none;">
+              <div class="message-avatar">🤖</div>
+              <div class="message-bubble">
+                <div class="message-role">AI Assistant</div>
+                <div class="typing-dots">
+                  <span></span><span></span><span></span>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-      </div>
+  </div>
 
-      <!-- Input Area -->
-      <div class="chat-input-area">
-        <form class="chat-form" id="chatForm">
+  <!-- Input Area -->
+  <div class="chat-input-area">
+    <form class="chat-form" id="chatForm">
 
-          <textarea
-            id="messageInput"
-            class="message-input"
-            placeholder="Type a message... (Enter to send, Shift+Enter for new line)"
-            rows="1"
-            required
-          ></textarea>
+      <textarea id="messageInput" class="message-input"
+        placeholder="Type a message... (Enter to send, Shift+Enter for new line)" rows="1" required></textarea>
 
-          <button type="submit" class="send-btn" id="sendBtn">
-            <span id="sendBtnText">Send ↑</span>
-          </button>
+      <button type="submit" class="send-btn" id="sendBtn">
+        <span id="sendBtnText">Send ↑</span>
+      </button>
 
-        </form>
-      </div>
+    </form>
+  </div>
 
-    <% } %>
+  <% } %>
 
-  </main>
+    </main>
 
-</div>
+    </div>
 
-<!-- Pass conversation ID to JS -->
-<% if (activeConversation) { %>
-  <script>
-    const CONVERSATION_ID = '<%= activeConversation._id %>';
-  </script>
-<% } %>
+    <!-- Pass conversation ID to JS -->
+    <% if (activeConversation) { %>
+      <script>
+        const CONVERSATION_ID = '<%= activeConversation._id %>';
+      </script>
+      <% } %>
 
-<script src="/js/chat.js"></script>
+        <script src="/js/chat.js"></script>
 
-<%- include('partials/footer') %>
+        <%- include('partials/footer') %>

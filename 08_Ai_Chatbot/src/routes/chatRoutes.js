@@ -5,6 +5,7 @@ import {
   getConversation,
   sendMessage,
   deleteConversation,
+  renameConversation 
 } from '../controllers/chatController.js';
 import { isLoggedIn } from '../middleware/authMiddleware.js';
 
@@ -20,6 +21,7 @@ router.post('/new', createConversation);
 
 router.get('/:id', getConversation);
 router.post('/:id/message', sendMessage);
+router.patch('/:id/rename', renameConversation);  //
 router.delete('/:id', deleteConversation);
 
 
