@@ -158,3 +158,25 @@ if (typeof CONVERSATION_ID !== 'undefined') {
   scrollToBottom();
   messageInput.focus();
 }
+
+// ── Search / Filter Conversations ─────────────────────
+const searchInput = document.getElementById('searchInput');
+const noResults   = document.getElementById('noResults');
+
+if (searchInput) {
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.trim().toLowerCase();
+    const items = document.querySelectorAll('.conversation-item');
+    let visibleCount = 0;
+
+    items.forEach((item) => {
+      const title = item.querySelector('.conversation-title').textContent.toLowerCase();
+      const match = title.includes(query);
+      item.style.display = match ? 'flex' : 'none';
+      if (match) visibleCount++;
+    });
+
+    // Show no results message if nothing matches
+    noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+  });
+}

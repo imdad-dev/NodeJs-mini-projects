@@ -13,7 +13,15 @@
     <a href="/chat/new" class="new-chat-btn">+ New Chat</a>
 
     <div class="conversations-list">
-      <p class="conversations-label">Recent Chats</p>
+    <p class="conversations-label">Recent Chats</p>
+    <div class="search-box">
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="🔍 Search chats..."
+    autocomplete="off"
+       />
+   </div>
 
       <% if (conversations.length === 0) { %>
         <p class="no-conversations">No conversations yet.<br/>Start a new chat!</p>
@@ -34,6 +42,8 @@
 
         </div>
       <% }) %>
+
+      <p class="no-results" id="noResults">No chats found.</p> 
     </div>
 
     <div class="sidebar-footer">
@@ -60,7 +70,7 @@
       <!-- Chat Header -->
       <div class="chat-header">
         <h2 class="chat-title" id="chatTitle"><%= activeConversation.title %></h2>
-        <span class="chat-model">✨ Gemini 1.5 Flash</span>
+        <span class="chat-model">✨ grok-4.20</span>
       </div>
 
       <!-- Messages -->

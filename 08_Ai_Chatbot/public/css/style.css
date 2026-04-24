@@ -312,6 +312,41 @@ a:hover { text-decoration: underline; }
   text-decoration: none;
 }
 
+/* ── Search Box ─────────────────────────────────────── */
+.search-box {
+  padding: 0 0.75rem 0.75rem;
+}
+
+.search-box input {
+  width: 100%;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.75rem;
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-box input:focus {
+  border-color: var(--accent);
+}
+
+.search-box input::placeholder {
+  color: var(--text-muted);
+}
+
+/* ── No results found ───────────────────────────────── */
+.no-results {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  padding: 1.5rem 1rem;
+  display: none;
+}
+
 /* ── Main Chat Area ──────────────────────────────── */
 .chat-main {
   flex: 1;
