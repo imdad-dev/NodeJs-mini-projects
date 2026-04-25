@@ -139,6 +139,33 @@ a:hover { text-decoration: underline; }
   color: var(--text-secondary);
 }
 
+/* ── Chat Header Actions ────────────────────────────── */
+.chat-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.export-btn {
+  font-size: 0.775rem;
+  color: var(--text-muted);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.3rem 0.75rem;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+
+.export-btn:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+  text-decoration: none;
+}
+
 /* ════════════════════════════════════════════════════
    CHAT LAYOUT
 ════════════════════════════════════════════════════ */

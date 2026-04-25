@@ -66,10 +66,24 @@
         <% } else { %>
 
           <!-- Chat Header -->
-          <h2 class="chat-title" id="chatTitle" data-id="<%= activeConversation._id %>" title="Double click to rename">
-            <%= activeConversation.title %>
-          </h2>
-          <span class="chat-model">✨ grok-4.20</span>
+   <div class="chat-header">
+  <h2
+    class="chat-title"
+    id="chatTitle"
+    data-id="<%= activeConversation._id %>"
+    title="Double click to rename"
+  ><%= activeConversation.title %></h2>
+
+  <div class="chat-header-actions">
+    
+      href="/chat/<%= activeConversation._id %>/export"
+      class="export-btn"
+      title="Export conversation"
+      download
+    >📤 Export</a>
+    <span class="chat-model">✨ Groq LLaMA</span>
+  </div>
+</div>
   </div>
 
   <!-- Messages -->
