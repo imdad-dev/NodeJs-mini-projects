@@ -69,37 +69,50 @@ personal-portfolio/
 ├── index.js            # Server entry point
 ├── package.json
 └── README.md
-
+```
+---
 
 ## 🏃‍♂️ How to Run Locally
 
 ### Prerequisites
 - Node.js (v18 or higher)
-- MongoDB (Local or MongoDB Atlas)
+- MongoDB (running locally or MongoDB Atlas)
 
-### Installation
+### Installation Steps
 
 1. **Clone the repository**
    ```bash
    git clone https://github.com/yourusername/personal-portfolio.git
+
    cd personal-portfolio
 
-2. **Install dependencies**
-     npm install
+ 2. **Install dependencies**
+ ```
+    npm install
+```
 
-3.**Setup Environment Variables**
-   Create a .env file in the root folder:
+ 3.** Setup Environment Variables** : 
+ ---  
+Setup Environment VariablesCreate a .env file in the root directory and add the following configuration:
 
+```
 PORT=8000
-MONGODB_URI=mongodb://localhost:27017/portfolio
-JWT_SECRET=your_strong_secret_key_here
-EMAIL_USER=yourgmail@gmail.com
-EMAIL_PASS=your_password
 
-4. **Start MongoDB**
+MONGODB_URI=mongodb://localhost:27017/portfolio
+
+JWT_SECRET=your_strong_secret_key_here
+
+EMAIL_USER=yourgmail@gmail.com
+
+EMAIL_PASS=your_password
+```
+4. **Start MongoDB** 
+---
 Make sure MongoDB is running locally (mongod command).
  
 5. **Run the application**
+---
+```
   npm start
-
+```
 6. Open your browser and go to http://localhost:8000
