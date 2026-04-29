@@ -7,11 +7,10 @@ const PORT =8000;
 
 app.set("view engine" , "ejs");
 app.use(express.static(path.resolve("./public")));
-
-const io = new Server();
-
  
 const server =http.createServer(app);
+
+const io = new Server(server);
 io.on("connection" , function(server){
     console.log("Connection");
 });
