@@ -10,9 +10,14 @@ app.use(express.static(path.resolve("./public")));
 
 const io = new Server();
 
+ 
 const server =http.createServer(app);
+io.on("connection" , function(server){
+    console.log("Connection");
+});
+
 app.use("/" , (req , res)=>{
-    res.send("It's Work");
+    res.render("index");
 });
 
 
