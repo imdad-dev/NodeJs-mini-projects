@@ -11,8 +11,11 @@ app.use(express.static(path.resolve("./public")));
 const server =http.createServer(app);
 
 const io = new Server(server);
-io.on("connection" , function(server){
-    console.log("Connection");
+io.on("connection" , function(socket){
+    socket.on("send-location" , (data)=>{
+     io.emit("receive-location" , { id : socket.id , ...data});
+    })
+    console.log("Connected");
 });
 
 app.use("/" , (req , res)=>{
