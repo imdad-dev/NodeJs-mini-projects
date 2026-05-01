@@ -1,9 +1,36 @@
 const socket = io();
 
+// ─── Get username before doing anything ───────────────────
+let username = "";
+
+const modal = document.getElementById("username-modal");
+const input = document.getElementById("username-input");
+const btn   = document.getElementById("username-btn");
+
+// When user clicks "Join Map"
+btn.addEventListener("click", () => {
+    const val = input.value.trim();
+    if (!val) {
+        input.style.border = "2px solid red"; // highlight if empty
+        return;
+    }
+    username = val;
+    modal.style.display = "none"; // hide modal
+    startTracking();              // start geolocation
+});
+
+// Also allow pressing Enter key
+input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") btn.click();
+});
+
+
+ function startTracking(){
+    
 if(navigator.geolocation){
     navigator.geolocation.watchPosition( (position)=>{
         const {latitude , longitude  } = position.coords;
-        socket.emit("send-location" , { latitude , longitude});
+        socket.emit("send-location" , { latitude , longitude , username});
     } , 
  (error)=>{
     console.log("location error : " ,error);
@@ -16,6 +43,7 @@ if(navigator.geolocation){
 ) 
  
 }
+ }
 
 
 const map =L.map("map").setView([0 , 0] , 15);
@@ -28,13 +56,20 @@ const paths = {};
 const polylines = {}
 
 socket.on("receive-location" , (data)=>{
-    const{ id , latitude , longitude} = data;
+    const{ id , latitude , longitude , username} = data;
     map.setView([latitude , longitude] , 15);
 
     if(markers[id]){
         markers[id].setLatLng([latitude , longitude])
     } else{
-        markers[id] = L.marker([latitude , longitude]).addTo(map);
+        markers[id] = L.marker([latitude , longitude])
+        .addTo(map)
+        .bindTooltip(username, {       // 👈 attach name label
+                permanent: true,           // always visible (not just on hover)
+                direction: "top",          // label appears above marker
+                className: "user-label",   // our custom CSS class
+                offset: [0, -10],          // push label up a bit
+            });
     }
 
        //  Initialize path array for this user if first time
@@ -55,7 +90,8 @@ socket.on("receive-location" , (data)=>{
             color: "blue",      // line color
             weight: 4,          // line thickness (px)
             opacity: 0.7,       // transparency
-        }).addTo(map);
+        }).addTo(map)
+ 
     }
 
 })
