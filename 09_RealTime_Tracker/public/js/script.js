@@ -10,7 +10,7 @@ if(navigator.geolocation){
  } ,
  {
     enableHighAccuracy: true,
-      timeout: 5000,
+      timeout: 3000,
       maximumAge: 0,
 }
 ) 
@@ -34,4 +34,11 @@ socket.on("receive-location" , (data)=>{
     } else{
         markers[id] = L.marker([latitude , longitude]).addTo(map);
     }
+})
+
+socket.on("user-disconnected" , ()=>{
+ if(markers[id]){
+        map.removeLayer(markers[id]);
+    delete markers[id];
+ }
 })
