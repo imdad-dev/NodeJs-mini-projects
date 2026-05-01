@@ -24,6 +24,8 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map);
 
 const markers = { };
+const paths = {};
+const polylines = {}
 
 socket.on("receive-location" , (data)=>{
     const{ id , latitude , longitude} = data;
@@ -34,6 +36,28 @@ socket.on("receive-location" , (data)=>{
     } else{
         markers[id] = L.marker([latitude , longitude]).addTo(map);
     }
+
+       //  Initialize path array for this user if first time
+    if (!paths[id]) {
+        paths[id] = [];
+    }
+
+    //  Push the new coordinate into their path history
+    paths[id].push([latitude, longitude]);
+
+        //  Draw or update the polyline on the map
+    if (polylines[id]) {
+        // Already has a line → just update it with new points
+        polylines[id].setLatLngs(paths[id]);
+    } else {
+        // First time → create a new polyline and add to map
+        polylines[id] = L.polyline(paths[id], {
+            color: "blue",      // line color
+            weight: 4,          // line thickness (px)
+            opacity: 0.7,       // transparency
+        }).addTo(map);
+    }
+
 })
 
 socket.on("user-disconnected" , ()=>{
@@ -41,4 +65,12 @@ socket.on("user-disconnected" , ()=>{
         map.removeLayer(markers[id]);
     delete markers[id];
  }
+
+  //  Remove polyline and clean up path data
+    if (polylines[id]) {
+        map.removeLayer(polylines[id]);
+        delete polylines[id];
+    }
+    delete paths[id];
+
 })
