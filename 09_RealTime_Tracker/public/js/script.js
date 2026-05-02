@@ -96,6 +96,28 @@ socket.on("receive-location" , (data)=>{
 
 })
 
+
+// ── Update Sidebar ──────────────────────────────────────────
+const userListEl  = document.getElementById("user-list");
+const userCountEl = document.getElementById("user-count");
+
+socket.on("update-user-list", (users) => {
+    // Update count badge
+    userCountEl.textContent = users.length;
+
+    // Clear and re-render list
+    userListEl.innerHTML = "";
+
+    users.forEach((user) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+            <span class="status-dot"></span>
+            <span>${user.username}</span>
+        `;
+        userListEl.appendChild(li);
+    });
+});
+
 socket.on("user-disconnected" , ()=>{
  if(markers[id]){
         map.removeLayer(markers[id]);

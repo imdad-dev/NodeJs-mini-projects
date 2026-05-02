@@ -1,33 +1,94 @@
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html , body {
-    width: 100%;
-    height: 100%;
+ /* Make map + sidebar sit side by side */
+body {
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    font-family: sans-serif;
 }
 
 #map {
-      width: 100%;
-    height: 100%;
+    flex: 1;
+    height: 100vh;
 }
 
+/* ── Sidebar ── */
+#sidebar {
+    width: 220px;
+    min-width: 220px;
+    background: #1a1a2e;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    overflow-y: auto;
+}
 
-/* Modal overlay */
+#sidebar-header {
+    padding: 18px 16px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background: #16213e;
+    border-bottom: 1px solid #0f3460;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#user-count {
+    background: #3388ff;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+#user-list {
+    list-style: none;
+    margin: 0;
+    padding: 10px 0;
+}
+
+#user-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-bottom: 1px solid #0f3460;
+    font-size: 0.95rem;
+    transition: background 0.2s;
+}
+
+#user-list li:hover {
+    background: #16213e;
+}
+
+/* Green online dot */
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #2ecc71;
+    flex-shrink: 0;
+    box-shadow: 0 0 6px #2ecc71;
+}
+
+/* Modal overlay (same as before) */
 #username-modal {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0,0,0,0.6);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
 }
 
-/* Modal box */
 #username-box {
     background: white;
     padding: 30px 40px;
@@ -36,10 +97,7 @@ html , body {
     box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 
-#username-box h2 {
-    margin-bottom: 16px;
-    font-size: 1.4rem;
-}
+#username-box h2 { margin-bottom: 16px; }
 
 #username-input {
     padding: 10px 16px;
@@ -62,11 +120,8 @@ html , body {
     cursor: pointer;
 }
 
-#username-btn:hover {
-    background: #1a6ed8;
-}
+#username-btn:hover { background: #1a6ed8; }
 
-/* Leaflet tooltip label style */
 .user-label {
     background: transparent;
     border: none;
