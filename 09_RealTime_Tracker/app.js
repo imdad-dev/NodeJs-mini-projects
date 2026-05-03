@@ -20,10 +20,21 @@ io.on("connection" , function(socket){
 
              // save user info on first location emit
         if (!connectedUsers[socket.id]) {
-            connectedUsers[socket.id] = { username };
+            connectedUsers[socket.id] = { 
+                username ,
+                 latitude ,
+                 longitude ,     
+            };
 
             // Broadcast updated user list to ALL clients
-            io.emit("update-user-list", Object.values(connectedUsers));
+            io.emit("update-user-list", Object.values(connectedUsers).map( ([id , user]) =>({
+                id , 
+                username : user.username ,
+                latitude : user.latitude ,
+                 longitude : user.longitude 
+            }))
+          
+        );
         }
      io.emit("receive-location" , { id : socket.id , ...data});
     })
