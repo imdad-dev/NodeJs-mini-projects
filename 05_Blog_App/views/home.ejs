@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- include("./partials/head") %>
+    <body class="d-flex flex-column min-vh-100"></body>
     <title>home</title>
 </head>
 <body>
         <%- include("./partials/nav") %>
 
-<div class="container mt-3">
+<main class="felx-grow-1">
+ <div class="container mt-3">
   <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
     
     <% blogs.forEach(blog => { %>
@@ -25,6 +27,8 @@
 
   </div>
 </div>
+</main>
         <%- include("./partials/script") %>
+        <%- include('partials/footer') %>
 </body>
 </html>

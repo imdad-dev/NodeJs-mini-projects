@@ -5,8 +5,16 @@
 <%- include('./partials/head') %>
     <title> Profile </title>
 </head>
-<body>
+
+<body class="d-flex flex-column min-vh-100">
+
    <%- include('./partials/nav') %> 
+
+  <main class="flex-grow-1">
+    <!-- page content -->
+     
+<body>
+ 
 <div class="container mt-5">
     <div class="card mx-auto" style="max-width: 500px;">
         <div class="card-body text-center">
@@ -21,7 +29,9 @@
         </div>
     </div>
 </div>
-
+  </main>
+ 
  <%- include('./partials/script') %>
+ <%- include('partials/footer') %>
 </body>
 </html>

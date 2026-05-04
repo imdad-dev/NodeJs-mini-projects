@@ -5,8 +5,16 @@
 <%- include('./partials/head') %>
     <title>Dashboard</title>
 </head>
-<body>
+
+<body class="d-flex flex-column min-vh-100">
+
    <%- include('./partials/nav') %> 
+
+  <main class="flex-grow-1">
+    <!-- page content -->
+     
+<body>
+ 
  <div class="container mt-4">
     <h2>Your Published Blogs</h2>
     <table class="table">
@@ -37,6 +45,9 @@
     </table>
 </div>
 
+     </main>
+ 
  <%- include('./partials/script') %>
+ <%- include('partials/footer') %>
 </body>
 </html>
