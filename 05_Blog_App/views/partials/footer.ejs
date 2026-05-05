@@ -1,56 +1,41 @@
- <footer class="bg-dark text-light border-top border-secondary mt-auto pt-3 pb-2">
-  <div class="container">
+<footer class="blogify-footer">
+  <div class="container footer-top">
+    <div class="row gy-4 align-items-start">
 
-    <div class="row gy-2">
-
-      <!-- Brand -->
-      <div class="col-md-4">
-        <h6 class="fw-bold mb-1">
-          <span class="text-primary">B</span>logify
-        </h6>
-        <p class="small text-secondary mb-0">
-          Share your ideas with the world 🚀
-        </p>
+      <div class="col-lg-5 footer-brand">
+        <h6 class="footer-logo">Blogify</h6>
+        <p class="footer-tagline">Create blogs worth sharing</p>
+        <p class="footer-description">A polished space for authors, makers and tech storytellers to publish ideas with confidence.</p>
       </div>
 
-      <!-- Links -->
-      <div class="col-md-4">
-        <h6 class="fw-semibold mb-1 small">Links</h6>
-        <ul class="list-unstyled small mb-0">
-          <li>
-            <a href="/" class="text-secondary text-decoration-none">Home</a>
-          </li>
-
+      <div class="col-lg-4 footer-links">
+        <h6>Quick Link</h6>
+        <ul>
+          <li><a href="/">Home</a></li>
           <% if (locals.user) { %>
-            <li>
-              <a href="/blog/add-blog" class="text-secondary text-decoration-none">Add Blog</a>
-                    
-                    <li><a class="text-secondary text-decoration-none" href="/user/dashboard">Dashboard</a></li>
-            </li>
+            <li><a href="/blog/add-blog">Add Blog</a></li>
+            <li><a href="/user/dashboard">Dashboard</a></li>
           <% } else { %>
-            <li>
-              <a href="/user/login" class="text-secondary text-decoration-none">Signin</a>
-            </li>
+            <li><a href="/user/login">Sign in</a></li>
           <% } %>
         </ul>
       </div>
 
-      <!-- Contact -->
-      <div class="col-md-4">
-        <h6 class="fw-semibold mb-1 small">Contact</h6>
-        <p class="small text-secondary mb-1">
-          support@blogify.com
-        </p>
+      <div class="col-lg-3 footer-social">
+        <h6>Connect</h6>
+        <a href="https://github.com/imdad-dev" class="footer-social-link" target="_blank" rel="noreferrer">
+          <i class="bi bi-github"></i>
+          GitHub
+        </a>
       </div>
 
     </div>
 
-    <hr class="border-secondary my-2">
+    <hr class="footer-divider my-3">
 
-    <!-- Bottom -->
-    <div class="text-center small text-secondary">
-      &copy; <%= new Date().getFullYear() %> Blogify
+    <div class="footer-bottom">
+      <div>© 2026 Blogify. All rights reserved</div>
+      <div>Designed by <span class="footer-credit">Imdad</span></div>
     </div>
-
   </div>
 </footer>

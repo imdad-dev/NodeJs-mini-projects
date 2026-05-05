@@ -9,11 +9,10 @@
     </button>
 
     <div class="collapse navbar-collapse" id="blogNavbar">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
         <li class="nav-item">
           <a class="nav-link active" href="/">Home</a>
         </li>
-
         <% if (locals.user) { %>
           <li class="nav-item">
             <a class="nav-link" href="/blog/add-blog">Add Blog</a>
@@ -22,16 +21,15 @@
       </ul>
 
       <% if (locals.user) { %>
-        <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav ms-auto align-items-center">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle d-flex align-items-center nav-profile-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <img src="<%= user.profileImageURL %>"
                    alt="Profile"
-                   class="rounded-circle me-2"
-                   style="width: 30px; height: 30px; object-fit: cover; border: 1px solid rgba(255,255,255,0.2);">
-              <span><%= user.fullName%></span>
+                   class="rounded-circle profile-avatar me-2">
+              <span><%= user.fullName %></span>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark shadow">
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm">
               <li><a class="dropdown-item" href="/user/profile">My Profile</a></li>
               <li><a class="dropdown-item" href="/user/dashboard">Dashboard</a></li>
               <li><hr class="dropdown-divider"></li>
@@ -40,7 +38,7 @@
           </li>
         </ul>
       <% } else { %>
-        <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav ms-auto align-items-center">
           <li class="nav-item">
             <a class="nav-link" href="/user/login">Signin</a>
           </li>
