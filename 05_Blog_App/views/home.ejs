@@ -11,12 +11,17 @@
 
     <!-- Hero Section -->
     <section class="hero-section">
+        <div class="hero-transition"></div>
         <div class="container">
             <h1>Build Your Voice Online</h1>
             <p>Create, publish, and explore blogs in a modern platform built for thinkers, creators, and storytellers.</p>
             <div class="hero-cta-group">
                 <div class="hero-actions">
-                    <a href="/blog/add-blog" class="btn btn-primary">Start Blogging</a>
+                    <% if (locals.user) { %>
+                        <a href="/blog/add-blog" class="btn btn-primary">Start Blogging</a>
+                    <% } else { %>
+                        <a href="/user/login" class="btn btn-primary">Start Blogging</a>
+                    <% } %>
                 </div>
                 <p class="hero-secondary">Start your journey today—no barriers.</p>
             </div>
