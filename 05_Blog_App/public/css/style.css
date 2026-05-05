@@ -44,45 +44,81 @@ p {
 
 /* ===== NAVIGATION ===== */
 .navbar {
-    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%) !important;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%) !important;
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     padding: 0.75rem 0;
+    transition: all 0.3s ease;
 }
 
 .navbar-brand {
     font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff !important;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand:hover {
+    color: #007bff !important;
+    transform: scale(1.02);
+}
+
+.navbar-brand .text-primary {
+    color: #007bff !important;
     font-weight: 800;
-    background: linear-gradient(135deg, #5c7cff 0%, #b24cff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 2px; /* Slightly lower positioning */
-    letter-spacing: -0.5px;
 }
 
 .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.8) !important;
     font-weight: 500;
+    padding: 0.5rem 1rem;
+    margin: 0 0.25rem;
+    border-radius: 6px;
     transition: all 0.3s ease;
     position: relative;
 }
 
 .navbar-nav .nav-link:hover {
-    color: #5c7cff !important;
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.1);
     transform: translateY(-1px);
 }
 
 .navbar-nav .nav-link.active {
-    color: #5c7cff !important;
+    color: #007bff !important;
+    background-color: rgba(0, 123, 255, 0.1);
+    font-weight: 600;
 }
 
 /* Dropdown styling */
 .dropdown-menu {
-    background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 12px !important;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3) !important;
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(10px);
+    margin-top: 0.5rem;
+}
+
+.dropdown-item {
+    color: rgba(255, 255, 255, 0.8) !important;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+    margin: 0.25rem 0.5rem;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(0, 123, 255, 0.2) !important;
+    color: #ffffff !important;
+    transform: translateX(4px);
+}
+
+.dropdown-item.text-danger:hover {
+    background-color: rgba(220, 53, 69, 0.2) !important;
+}
 }
 
 .dropdown-item {
@@ -144,19 +180,6 @@ p {
     right: -100px;
     background: radial-gradient(circle, rgba(75, 199, 255, 0.22), transparent 46%);
     animation: floatLight 18s ease-in-out infinite reverse;
-}
-
-/* Hero to Body Transition */
-.hero-transition {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 80px;
-    background: linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.02) 50%, rgba(255, 255, 255, 0.05) 100%);
-    pointer-events: none;
-    z-index: 1;
 }
 
 .hero-section .container {
