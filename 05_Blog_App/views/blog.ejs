@@ -3,41 +3,12 @@
 <head>
     <%- include('./partials/head') %>
     <title><%= blog.title %> | BlogView</title>
-    <style>
-        /* Modern Typography & Spacing */
-        .blog-container { max-width: 800px; margin-top: 50px; }
-        .blog-header { margin-bottom: 2rem; }
-        .blog-title { font-weight: 800; letter-spacing: -1px; line-height: 1.2; }
-        .blog-meta { color: #6c757d; font-size: 0.95rem; }
-        .blog-cover-img { 
-            width: 100%; 
-            max-height: 450px; 
-            object-fit: cover; 
-            border-radius: 16px; 
-            margin-bottom: 2.5rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        /* Style for the body content */
-        .blog-body { 
-            font-size: 1.15rem; 
-            line-height: 1.8; 
-            color: #212529; 
-        }
-        .blog-body p { margin-bottom: 1.5rem; }
-        /* Style for code blocks if user sends <code> or <pre> */
-        pre {
-            background: #2d2d2d;
-            color: #f8f8f2;
-            padding: 1.5rem;
-            border-radius: 8px;
-            overflow-x: auto;
-        }
-    </style>
 </head>
-<body class="bg-light">
+<body class="d-flex flex-column min-vh-100">
     <%- include('./partials/nav') %> 
 
-    <main class="container blog-container bg-white p-4 p-md-5 shadow-sm rounded">
+    <main class="flex-grow-1">
+        <div class="container blog-container">
         
         <header class="blog-header text-center">
             <nav aria-label="breadcrumb">
@@ -141,7 +112,7 @@
         <% } %>
     </div>
 
-
+        </div>
     </main>
 
     <%- include('./partials/script') %>
