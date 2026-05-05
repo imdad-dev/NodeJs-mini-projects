@@ -4,31 +4,259 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%- include("./partials/head") %>
-    <body class="d-flex flex-column min-vh-100"></body>
-    <title>home</title>
+    <title>Blogify - Home</title>
+    <style>
+        @keyframes floatLight {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-18px) translateX(12px); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-section {
+            position: relative;
+            min-height: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 24px;
+            background: linear-gradient(180deg, #060a19 0%, #060a19 55%, #0e1128 100%);
+            color: #f8f9ff;
+            overflow: hidden;
+        }
+
+        .hero-section::before,
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.7;
+            z-index: 0;
+        }
+
+        .hero-section::before {
+            width: 420px;
+            height: 420px;
+            top: -80px;
+            left: -80px;
+            background: radial-gradient(circle, rgba(110, 99, 255, 0.55), transparent 55%);
+            animation: floatLight 16s ease-in-out infinite;
+        }
+
+        .hero-section::after {
+            width: 520px;
+            height: 520px;
+            bottom: -120px;
+            right: -100px;
+            background: radial-gradient(circle, rgba(75, 199, 255, 0.22), transparent 46%);
+            animation: floatLight 18s ease-in-out infinite reverse;
+        }
+
+        .hero-section .container {
+            position: relative;
+            z-index: 1;
+            max-width: 920px;
+            text-align: center;
+            animation: fadeInUp 1s ease-out both;
+        }
+
+        .hero-section h1 {
+            font-size: clamp(2.5rem, 5vw, 4.2rem);
+            line-height: 0.95;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+            text-shadow: 0 28px 80px rgba(19, 40, 67, 0.25);
+        }
+
+        .hero-section p {
+            font-size: 1.14rem;
+            color: rgba(248, 249, 255, 0.86);
+            max-width: 720px;
+            margin: 0 auto 1.8rem;
+            line-height: 1.85;
+            font-weight: 400;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .hero-actions {
+            display: inline-flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 14px;
+        }
+
+        .hero-actions .btn-primary {
+            background: linear-gradient(135deg, #5c7cff 0%, #b24cff 100%);
+            border: none;
+            color: #fff;
+            border-radius: 999px;
+            padding: 16px 38px;
+            font-size: 1rem;
+            font-weight: 700;
+            box-shadow: 0 22px 60px rgba(92, 124, 255, 0.28);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .hero-actions .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 28px 75px rgba(92, 124, 255, 0.32);
+        }
+
+        .hero-secondary {
+            color: rgba(248, 249, 255, 0.68);
+            font-size: 0.98rem;
+            line-height: 1.75;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 84px 20px;
+                min-height: 460px;
+            }
+
+            .hero-section h1 {
+                margin-bottom: 0.85rem;
+            }
+
+            .hero-section p {
+                font-size: 1rem;
+                margin-bottom: 1.6rem;
+            }
+
+            .hero-actions {
+                gap: 12px;
+            }
+
+            .hero-actions .btn-primary {
+                width: 100%;
+                max-width: 320px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-section {
+                padding: 72px 16px;
+                min-height: 420px;
+            }
+
+            .hero-section h1 {
+                font-size: 2.3rem;
+            }
+
+            .hero-section p {
+                font-size: 0.95rem;
+            }
+        }
+
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background-color: #667eea;
+            border: none;
+            border-radius: 25px;
+            padding: 8px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #5a6fd8;
+        }
+    </style>
 </head>
-<body>
-        <%- include("./partials/nav") %>
+<body class="d-flex flex-column min-vh-100">
+    <%- include("./partials/nav") %>
 
-<main class="felx-grow-1">
- <div class="container mt-3">
-  <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
-    
-    <% blogs.forEach(blog => { %>
-      <div class="col">
-        <div class="card h-100"> <img src="<%= blog.coverImage %>" class="card-img-top" alt="<%= blog.title %>" style="height: 200px; object-fit: cover;">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title"><%= blog.title %></h5>
-            <a href="/blog/<%= blog._id %>" class="btn btn-primary mt-auto">Read</a>
-          </div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1>Build Your Voice Online</h1>
+            <p>Create, publish, and explore blogs in a modern platform built for thinkers, creators, and storytellers.</p>
+            <div class="hero-cta-group">
+                <div class="hero-actions">
+                    <a href="/blog/add-blog" class="btn btn-primary">Start Blogging</a>
+                </div>
+                <p class="hero-secondary">Start your journey today—no barriers.</p>
+            </div>
         </div>
-      </div>
-    <% }) %>
+    </section>
 
-  </div>
-</div>
-</main>
-        <%- include("./partials/script") %>
-        <%- include('partials/footer') %>
+    <main class="flex-grow-1">
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">Latest Blogs</h2>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                <% blogs.forEach(blog => { %>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="<%= blog.coverImage %>" class="card-img-top" alt="<%= blog.title %>">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title"><%= blog.title %></h5>
+                                <p class="card-text">
+                                    <small class="text-muted">
+                                        <% if (blog.createdBy && blog.createdBy.fullName) { %>
+                                            By <%= blog.createdBy.fullName %> •
+                                        <% } %>
+                                        <%= new Date(blog.createdAt).toLocaleDateString() %>
+                                    </small>
+                                </p>
+                                <p class="card-text flex-grow-1">
+                                    <%= blog.body.substring(0, 100) %>...
+                                </p>
+                                <a href="/blog/<%= blog._id %>" class="btn btn-primary mt-auto">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </main>
+
+    <%- include("./partials/script") %>
+    <%- include('partials/footer') %>
 </body>
 </html>

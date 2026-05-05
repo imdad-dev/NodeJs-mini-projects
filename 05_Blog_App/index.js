@@ -27,7 +27,7 @@ app.use(checkForAuthinticationCookie("token"))
 
 app.get("/" , async (req , res)=>{
     //  console.log(req.user);
-     const blogs = await Blog.find({});
+     const blogs = await Blog.find({}).populate("createdBy", "fullName").sort({ createdAt: -1 });
     res.render("home" , { 
         user : req.user  ,
           blogs ,
