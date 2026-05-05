@@ -69,6 +69,8 @@ p {
     margin-bottom: 0;
     padding-top: 0;
     padding-bottom: 0;
+    position: relative;
+    top: -8px;
 }
 
 .navbar-brand:hover {
@@ -215,6 +217,13 @@ p {
     margin-bottom: 1rem;
     letter-spacing: -1px;
     text-shadow: 0 28px 80px rgba(19, 40, 67, 0.25);
+}
+
+.hero-gradient {
+    color: transparent;
+    background: linear-gradient(135deg, #34d399 0%, #22c55e 45%, #10b981 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
 }
 
 .hero-section p {
