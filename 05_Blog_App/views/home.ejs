@@ -46,7 +46,7 @@
                                     </small>
                                 </p>
                                 <p class="card-text flex-grow-1">
-                                    <%= blog.body.substring(0, 100) %>...
+                                    <%= blog.body.replace(/<[^>]*>/g, '').substring(0, 100) %>...
                                 </p>
                                 <a href="/blog/<%= blog._id %>" class="btn btn-primary mt-auto">Read More</a>
                             </div>
