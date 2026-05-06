@@ -28,7 +28,11 @@ console.log(token)
 
     } catch (error) {
         console.log(error)
-        return res.render("login" , { err : "Incorrect email or password"})
+        let errorMessage = "Incorrect email or password";
+        if (error.message === "User Not Found !") {
+            errorMessage = "User not found, please sign up first";
+        }
+        return res.render("login" , { err : errorMessage })
     }
 }
 
