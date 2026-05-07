@@ -35,6 +35,9 @@ const AddNewBlog  =(  async (req , res) =>{
 // ----------view or read blog Content ------------//
 
 const viewBlogContent = async (req , res) =>{
+  // Increment views
+  await Blog.findByIdAndUpdate(req.params.id, { $inc: { views: 1 } });
+
   const blog = await Blog.findById(req.params.id).populate("createdBy")     // populate --> id wise view blog only 
   const  comments = await Comment.find({blogId : req.params.id}).populate("createdBy")
 
