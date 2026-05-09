@@ -1,5 +1,12 @@
+import mongoose from 'mongoose';
 import Conversation from '../models/conversation.models.js';
 import getAIResponse from '../utils/aiHelper.js';
+import {
+  validateMessage,
+  validateTitle,
+  isValidObjectId,
+  sanitizeText,
+} from '../utils/validation.js';
 
 // ── Get Chat Dashboard ──────────────────────────────────
 export const getChatDashboard = async (req, res) => {
@@ -63,7 +70,23 @@ export const getConversation = async (req, res) => {
 // ── Send Message + Get AI Reply ─────────────────────────
 export const sendMessage = async (req, res) => {
   try {
-    const { message } = req.body;
+    let { message } = req.body;
+
+    // Validate message
+    if (!message || typeof message !== 'string') {
+      return res.status(400).json({ error: 'Message is required' });
+    }
+
+    message = validateMessage(message);
+    if (!message) {
+      return res.status(400).json({ error: 'Message must be 1-5000 characters' });
+    }
+
+    // Validate conversation ID
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json({ error: 'Invalid conversation ID' });
+    }
+
     const conversation = await Conversation.findOne({
       _id: req.params.id,
       userId: req.session.userId,
@@ -126,15 +149,22 @@ export const deleteConversation = async (req, res) => {
 // ── Rename Conversation ─────────────────────────────────
 export const renameConversation = async (req, res) => {
   try {
-    const { title } = req.body;
+    let { title } = req.body;
 
-    if (!title || title.trim() === '') {
-      return res.status(400).json({ error: 'Title cannot be empty' });
+    // Validate ID
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json({ error: 'Invalid conversation ID' });
+    }
+
+    // Validate and sanitize title
+    title = validateTitle(title);
+    if (!title) {
+      return res.status(400).json({ error: 'Title must be 1-100 characters' });
     }
 
     const conversation = await Conversation.findOneAndUpdate(
       { _id: req.params.id, userId: req.session.userId },
-      { title: title.trim() },
+      { title },
       { new: true }
     );
 
@@ -153,7 +183,8 @@ export const renameConversation = async (req, res) => {
 // ── Export Conversation as .txt ─────────────────────────
 export const exportConversation = async (req, res) => {
   try {
-    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    // Validate ID
+    if (!isValidObjectId(req.params.id)) {
       return res.status(400).json({ error: 'Invalid conversation ID' });
     }
 

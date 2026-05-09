@@ -1,4 +1,10 @@
 import User from '../models/user.models.js';
+import {
+  validateEmail,
+  validateUsername,
+  validatePassword,
+  sanitizeText,
+} from '../utils/validation.js';
 
 // ── Show Register Page ──────────────────────────────────
 export const showRegister = (req, res) => {
@@ -9,7 +15,29 @@ export const showRegister = (req, res) => {
 // ── Register User ───────────────────────────────────────
 export const registerUser = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    let { username, email, password } = req.body;
+
+    // Sanitize inputs
+    username = sanitizeText(username);
+    email = sanitizeText(email?.toLowerCase());
+    password = sanitizeText(password);
+
+    // Validate inputs
+    if (!validateUsername(username)) {
+      return res.render('register', { 
+        error: 'Username must be 3-30 characters (letters, numbers, underscore only).' 
+      });
+    }
+
+    if (!validateEmail(email)) {
+      return res.render('register', { error: 'Invalid email format.' });
+    }
+
+    if (!validatePassword(password)) {
+      return res.render('register', { 
+        error: 'Password must be at least 6 characters.' 
+      });
+    }
 
     // Check if user already exists
     const existingUser = await User.findOne({ $or: [{ email }, { username }] });
@@ -40,7 +68,19 @@ export const showLogin = (req, res) => {
 // ── Login User ──────────────────────────────────────────
 export const loginUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    let { email, password } = req.body;
+
+    // Sanitize inputs
+    email = sanitizeText(email?.toLowerCase());
+    password = sanitizeText(password);
+
+    if (!validateEmail(email)) {
+      return res.render('login', { error: 'Invalid email or password.' });
+    }
+
+    if (!password) {
+      return res.render('login', { error: 'Invalid email or password.' });
+    }
 
     // Find user by email
     const user = await User.findOne({ email });
