@@ -225,6 +225,21 @@ npm run dev
 ![Login Page](./public/screenshots/login-page.png)
 
 ---
+---
+
+## 🔐 Sign up page 
+
+![Login Page](./public/screenshots/signup-page.png)
+
+---
+
+---
+
+## 🔐 Add Blog
+
+![Login Page](./public/screenshots/addBlog.png)
+
+---
 
 ## 👤 User Profile
 
