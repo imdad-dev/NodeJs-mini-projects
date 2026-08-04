@@ -4,7 +4,7 @@ export const isLoggedIn = (req, res, next) => {
   res.redirect('/auth/login');
 };
 
-// ── Prevent logged in users from accessing auth pages ──
+// ── Prevent logged 
 export const isGuest = (req, res, next) => {
   if (!req.session.userId) return next();
   res.redirect('/chat');
